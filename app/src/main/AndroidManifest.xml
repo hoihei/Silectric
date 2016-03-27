@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.alaindonesia.simulatortagihanlistrik">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PengaturanBiayaListrikActivity"
+            android:label="@string/title_activity_pengaturan_biaya_listrik"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+        </activity>
+        <activity
+            android:name=".PemakaianActivity"
+            android:label="@string/title_activity_pemakaian"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ListElektronikActivity"
+            android:label="Jenis Elektronik"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ElektronikActivity"
+            android:label="Jenis Elektronik"
+            android:parentActivityName=".ElektronikActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.alaindonesia.simulatortagihanlistrik.ElektronikActivity" />
+        </activity>
+    </application>
+
+</manifest>
