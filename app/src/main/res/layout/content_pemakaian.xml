@@ -86,16 +86,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Pemakaian per Hari (Jam)" />
+            android:text="Pemakaian per Hari (jam:menit)" />
 
-        <EditText
+        <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginBottom="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="0.1"
+            android:text="00:00"
             android:ems="10"
-            android:inputType="numberDecimal"
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/jumlahPemakaianJamTextView"
             />
 
@@ -115,11 +115,12 @@
             android:text="Jumlah Barang"
             />
 
-        <EditText
+        <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginBottom="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
             android:inputType="number"
             android:ems="10"
             android:text="1"

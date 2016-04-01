@@ -22,6 +22,7 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 5;
     private SQLiteDatabase dbSimulasiTarifPLN;
     private Context context;
+    private Elektronik defaultElektronik;
 
     public DatabaseSimulatorPLN(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,7 +30,29 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
 
     }
 
+    public Elektronik getDefaultElektronik() {
+        Elektronik elektronik = new Elektronik();
+        String selectQuery = "SELECT * FROM elektronik limit 1";
 
+        openReadableDatabase();
+        Cursor cursor = dbSimulasiTarifPLN.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                int id_elektronik = cursor.getInt(0);
+                String nama_elektronik = cursor.getString(1);
+                int daya_watt = cursor.getInt(2);
+                elektronik = new Elektronik(id_elektronik, daya_watt, nama_elektronik);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        closeDatabase();
+
+        return elektronik;
+    }
 
     public ArrayList<Elektronik> getElektronikList() {
         ArrayList<Elektronik> elektronikList = new ArrayList<>();
@@ -106,7 +129,7 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
         return totalWattHarian;
     }
 
-    public boolean addPemakaian(Pemakaian pemakaian) {
+    public long addPemakaian(Pemakaian pemakaian) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -114,14 +137,15 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
         values.put("jumlah_barang", pemakaian.getJumlahBarang());
         values.put("id_elektronik", pemakaian.getElektronik().getIdElektronik());
 
-        long result = dbSimulasiTarifPLN.insert("pemakaian", null, values);
+        long lastInsertedId = dbSimulasiTarifPLN.insert("pemakaian", null, values);
+
         closeDatabase();
 
-        return result > 0;
+        return lastInsertedId;
 
     }
 
-    public boolean editPemakaian(Pemakaian pemakaian) {
+    public boolean savePemakaian(Pemakaian pemakaian) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -163,10 +187,10 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
 
     }
 
-    public void deletePemakaian(int idPemakaian) {
+    public void deletePemakaian(Pemakaian pemakaian) {
         openWritableDatabase();
 
-        dbSimulasiTarifPLN.delete("pemakaian", "id_pemakaian=?", new String[]{String.valueOf(idPemakaian)});
+        dbSimulasiTarifPLN.delete("pemakaian", "id_pemakaian=?", new String[]{String.valueOf(pemakaian.getIdPemakaian())});
 
         closeDatabase();
     }
@@ -190,7 +214,7 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
 
         db.execSQL(createTableElektronik);
 
-        String createTablePemakaian = "CREATE TABLE pemakaian ('id_pemakaian' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,  'id_elektronik' INTEGER  NOT NULL, 'jumlah_pemakaian_jam'REAL NOT NULL DEFAULT (1), 'jumlah_barang' INTEGER  NOT NULL  DEFAULT (1));";
+        String createTablePemakaian = "CREATE TABLE pemakaian ('id_pemakaian' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,  'id_elektronik' INTEGER  NOT NULL  DEFAULT (1), 'jumlah_pemakaian_jam'REAL NOT NULL DEFAULT (1), 'jumlah_barang' INTEGER  NOT NULL  DEFAULT (0));";
 
         db.execSQL(createTablePemakaian);
 
@@ -253,7 +277,7 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
                 "    (56,'Vacuum cleaner',1000);");
 
         db.execSQL("INSERT INTO pemakaian(id_elektronik, jumlah_pemakaian_jam, jumlah_barang ) VALUES\n" +
-                "    (1, 12,1);" );
+                "    (1, 12,1);");
 
 
     }
@@ -282,6 +306,7 @@ public class DatabaseSimulatorPLN extends SQLiteOpenHelper {
     private void openWritableDatabase() {
         dbSimulasiTarifPLN = getWritableDatabase();
     }
+
 
 
 }

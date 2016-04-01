@@ -12,8 +12,10 @@ public class Pemakaian implements Parcelable {
     private int jumlahBarang;
 
 
-    public Pemakaian(){
-        this.idPemakaian=0;
+    public Pemakaian(Elektronik elektronik, double jumlahPemakaianJam, int jumlahBarang){
+        this.elektronik = elektronik;
+        this.jumlahPemakaianJam = jumlahPemakaianJam;
+        this.jumlahBarang = jumlahBarang;
     }
 
     public Pemakaian(int idPemakaian, Elektronik elektronik, double jumlahPemakaianJam, int jumlahBarang) {

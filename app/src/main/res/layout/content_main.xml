@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total Bulanan"
+                android:text="Total"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 />
@@ -89,6 +89,7 @@
                     android:id="@+id/jumlahHariEditText"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:ems="2"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:inputType="number"
                     />
