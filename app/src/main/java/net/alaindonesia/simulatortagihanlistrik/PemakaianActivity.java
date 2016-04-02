@@ -1,5 +1,6 @@
 package net.alaindonesia.simulatortagihanlistrik;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -12,7 +13,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,7 +35,7 @@ public class PemakaianActivity extends AppCompatActivity {
     private final Context context = this;
     private Pemakaian pemakaian;
     Calendar lamaPemakaianTime;
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
     private DatabaseSimulatorPLN databaseSimulatorPLN;
 
 
@@ -39,12 +43,11 @@ public class PemakaianActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pemakaian);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.pemakaianToolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         databaseSimulatorPLN = new DatabaseSimulatorPLN(this);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         pemakaian = getIntent().getParcelableExtra("pemakaian");
         if (pemakaian == null){
@@ -58,7 +61,7 @@ public class PemakaianActivity extends AppCompatActivity {
         lamaPemakaianTime = Calendar.getInstance();
 
         initPemakaianForm();
-        initSimpanFloatingButton();
+        initSimpanButton();
         initDeleteFloatingButton();
 
     }
@@ -95,23 +98,18 @@ public class PemakaianActivity extends AppCompatActivity {
     }
 
     private void initJumlahBarangNumberPicker(final TextView jumlahBarangTextView) {
-        jumlahBarangTextView.setOnClickListener(new View.OnClickListener() {
+        LinearLayout jumlahBarangLayout = (LinearLayout) findViewById(R.id.jumlahBarangLayout);
+        jumlahBarangLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
-
                 alert.setTitle("Jumlah Barang: ");
-
-
                 final NumberPicker np = new NumberPicker(context);
-
 
                 np.setMinValue(1);
                 np.setMaxValue(10000);
                 np.setWrapSelectorWheel(false);
                 np.setValue(pemakaian.getJumlahBarang());
-
-
 
                 alert.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -128,16 +126,14 @@ public class PemakaianActivity extends AppCompatActivity {
                         Gravity.CENTER));
 
                 alert.setView(parent);
-
-
                 alert.show();
             }
         });
     }
 
     private void initJumlahPemakaianTimePicker(final TextView jumlahPemakaianJamTextView) {
-
-        jumlahPemakaianJamTextView.setOnClickListener(new View.OnClickListener() {
+        LinearLayout jumlahPemakaianJamLayout = (LinearLayout) findViewById(R.id.jumlahPemakaianJamLayout);
+        jumlahPemakaianJamLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -167,8 +163,6 @@ public class PemakaianActivity extends AppCompatActivity {
 
 
     private void initElektronikSpinner(Spinner namaElektronikSpinner, List<Elektronik> elektronikList){
-        //DONE: Spinner elektronik wih sub item watt
-
         ArrayAdapter<Elektronik> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, elektronikList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         namaElektronikSpinner.setAdapter(dataAdapter);
@@ -190,10 +184,11 @@ public class PemakaianActivity extends AppCompatActivity {
         });
     }
 
-    private void initSimpanFloatingButton(){
+    private void initSimpanButton(){
 
-        FloatingActionButton simpanFloatingButton = (FloatingActionButton) findViewById(R.id.simpan_pemakaian_floating_button);
-        simpanFloatingButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton simpanPemakaianButton = (ImageButton) findViewById(R.id.simpanPemakaianButton);
+
+        simpanPemakaianButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -241,3 +236,4 @@ public class PemakaianActivity extends AppCompatActivity {
 
 
 }
+//DONE: Spinner elektronik wih sub item watt

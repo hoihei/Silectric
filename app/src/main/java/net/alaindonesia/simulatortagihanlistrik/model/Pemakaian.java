@@ -25,8 +25,6 @@ public class Pemakaian implements Parcelable {
         this.jumlahBarang = jumlahBarang;
     }
 
-
-
     public int getIdPemakaian() {
         return idPemakaian;
     }
@@ -35,7 +33,6 @@ public class Pemakaian implements Parcelable {
         this.idPemakaian = idPemakaian;
     }
 
-
     public double getJumlahPemakaianJam() {
         return jumlahPemakaianJam;
     }
@@ -43,8 +40,6 @@ public class Pemakaian implements Parcelable {
     public void setJumlahPemakaianJam(double jumlahPemakaianJam) {
         this.jumlahPemakaianJam = jumlahPemakaianJam;
     }
-
-
 
     public int getJumlahBarang() {
         return jumlahBarang;

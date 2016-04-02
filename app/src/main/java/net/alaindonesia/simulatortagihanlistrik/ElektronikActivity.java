@@ -7,11 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import net.alaindonesia.simulatortagihanlistrik.model.Elektronik;
-import net.alaindonesia.simulatortagihanlistrik.model.Pemakaian;
 
 public class ElektronikActivity extends AppCompatActivity {
     //DONE:Edit button
@@ -24,7 +22,7 @@ public class ElektronikActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elektronik);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

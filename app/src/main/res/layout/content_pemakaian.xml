@@ -19,21 +19,23 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nama_elektronik_layout"
-            android:layout_alignParentLeft="true">
+            android:id="@+id/pemakaianElektronikLayout"
+            android:background="?attr/selectableItemBackground"
+            android:layout_alignParentLeft="true"
+            >
 
 
             <TextView
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="Jenis Elektronik" />
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/namaElektronikSpinner"
@@ -41,16 +43,9 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dayaWattLayout">
-
-                <TextView
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Daya: " />
 
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -78,6 +73,7 @@
         android:id="@+id/jumlahPemakaianJamLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
         android:layout_height="wrap_content">
 
         <TextView
@@ -86,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Pemakaian per Hari (jam:menit)" />
+            android:text="Penggunaan per Hari (jam:menit)" />
 
         <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -95,7 +91,6 @@
             android:layout_height="wrap_content"
             android:text="00:00"
             android:ems="10"
-            android:background="?attr/selectableItemBackground"
             android:id="@+id/jumlahPemakaianJamTextView"
             />
 
@@ -105,7 +100,8 @@
         android:id="@+id/jumlahBarangLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="?attr/selectableItemBackground"
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_marginTop="10dip"
@@ -120,7 +116,6 @@
             android:layout_marginBottom="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
             android:inputType="number"
             android:ems="10"
             android:text="1"

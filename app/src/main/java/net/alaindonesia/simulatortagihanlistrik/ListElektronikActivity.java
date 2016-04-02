@@ -35,7 +35,7 @@ public class ListElektronikActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_elektronik);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
