@@ -28,8 +28,8 @@
                 android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
         </activity>
         <activity
-            android:name=".PemakaianActivity"
-            android:label="@string/title_activity_pemakaian"
+            android:name=".UsageActivity"
+            android:label="@string/title_activity_usage"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,8 +37,8 @@
                 android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
         </activity>
         <activity
-            android:name=".ListElektronikActivity"
-            android:label="Jenis Elektronik"
+            android:name=".ElectronicListActivity"
+            android:label=""
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -46,13 +46,13 @@
                 android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
         </activity>
         <activity
-            android:name=".ElektronikActivity"
-            android:label="Jenis Elektronik"
-            android:parentActivityName=".ElektronikActivity"
+            android:name=".ElectronicActivity"
+            android:label=""
+            android:parentActivityName=".ElectronicListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.alaindonesia.simulatortagihanlistrik.ElektronikActivity" />
+                android:value=".ElectronicListActivity" />
         </activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->

@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".PengaturanBiayaListrikActivity"
     android:orientation="vertical"
-    tools:showIn="@layout/activity_pengaturan_biaya_listrik">
+    tools:showIn="@layout/activity_electric_price">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Biaya Pemakaian per kWh"
+            android:text="Biaya Per kWh"
             />
 
         <EditText
@@ -33,7 +33,7 @@
             android:text="Rp0"
             android:inputType="numberDecimal"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/biaya_pemakaian_per_kwh_edit_text" />
+            android:id="@+id/biaya_usage_per_kwh_edit_text" />
 
 
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".UsageActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+
+                android:id="@+id/usageToolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Aktivitas Listrik"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <ImageButton
+                android:layout_margin="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingRight="15dp"
+                android:paddingEnd="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Widget.AppCompat.ButtonBar"
+                android:id="@+id/deleteUsageButton"
+                android:src="@android:drawable/ic_menu_delete"
+                />
+
+            <ImageButton
+                android:layout_margin="0dp"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Widget.AppCompat.ButtonBar"
+                android:id="@+id/saveUsageButton"
+
+                android:src="@android:drawable/ic_menu_save"
+                />
+
+
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <include layout="@layout/content_usage" />
+
+
+</android.support.design.widget.CoordinatorLayout>

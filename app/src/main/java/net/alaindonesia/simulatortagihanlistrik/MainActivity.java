@@ -1,17 +1,16 @@
 package net.alaindonesia.simulatortagihanlistrik;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,46 +19,61 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import net.alaindonesia.simulatortagihanlistrik.model.Elektronik;
-import net.alaindonesia.simulatortagihanlistrik.model.Pemakaian;
-import net.alaindonesia.simulatortagihanlistrik.model.DatabaseSimulatorPLN;
+import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
+import net.alaindonesia.simulatortagihanlistrik.model.Usage;
+import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-//TODO:On click layout, popup pemakaian
+//DONE:Kwh show more detail decimal
+//DONE::Fake hari button
+//TODO:Usage jam non ticker tapi jam : menit dalam scroll value seperti quality time
+//TODO: Jam & menit dalam database
+//TODO: Delete jam dan menit di usage
+//DONE: Title pada usage
+//DONE:Buton delete & simpan pisah lebar
+//DONE:Save button pada atur biaya listrik
+//DONE:Delete button in top left in usage activity
+//TODO:Usage jam not more than 24 batasan
+//TODO:pakai cara qualitytime app
+//DONE:On click layout, popup usage
 //TODO:Jam dalam bentuk Jam
-//TODO:Maximum jam is 24 in add pemakaian
+//TODO:Maximum jam is 24 in add usage
+//TODO:Populate db with initial data
 //TODO:Autosave, save button remind when keyboard up
-//TODO:Pemilihan jenis elektronik menggunakan listview daripada spinner, ada tombol edit dan hapus yang muncul jika click tahan
-//TODO:Bisa enable dan disable pemakaian
+//TODO:Template Pemilihan jenis elektronik menggunakan listview daripada spinner
+//TODO:Atur templete pemilihan jenis elektronik
+//TODO:Bisa enable dan disable usage
 //TODO:Menu kirim kritik saran ke email
 //TODO:Stupid input handling
 //TODO:Anda yakin saat hapus
-//TODO:Kwh ada desimal
+//DONE:Kwh ada desimal
 //TODO:Edit hari long press
-
+//TODO:Jenis elektronik, stand by mode
+//TODO:Jenis elektronik hanya sebagai template, buat baru on the fly, real watt value pada usageActivity
+//TODO:Lama Standby, Normal, Inverter, dll perhitungan dan di dalam di database per item usage
+//TODO: i18n, main code in English
+//TODO:Export to csv
+//TODO:Delete Usage from Database
+//TODO:Total watt dan biaya per hari pada main list_usage daripada watt barang, lama dan jumlah barang
+//TODO:delete all timeusage when delete usage
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int RESULT_ACTIVITY_DELETE_PEMAKAIAN = 2;
     private final int PEMAKAIAN_ACTIVITY_REQ = 1;
     private final int BIAYA_LISTRIK_ACTIVITY_REQ = 3;
     private SharedPreferences biayaListrikPreferences;
-    private DatabaseSimulatorPLN databaseSimulatorPLN;
+    private DbConnection dbConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,47 +83,44 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         biayaListrikPreferences = getSharedPreferences("biayaListrikPreferences", Context.MODE_PRIVATE);
-        databaseSimulatorPLN = new DatabaseSimulatorPLN(this);
+
+        dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
 
         checkBiayaListrikPreferences();
         initInputJumlahHari();
-        initTambahFloatingButton();
-        initListPemakaian();
+        initTambahUsageButton();
+        initListUsage();
         kalkulasiTotal();
 
     }
 
 
+
+
     private void kalkulasiTotal() {
         EditText jumlahHariEditText = (EditText) findViewById(R.id.jumlahHariEditText);
-        int jumlahHari;
-        try {
-            jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            jumlahHari = biayaListrikPreferences.getInt("jumlah_hari", 30);
-            ;
-        }
+        int jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
 
-
-        double totalWattHarian = databaseSimulatorPLN.getTotalWattHarian();
+        double totalWattHarian = dbConnection.getTotalWattHarian();
         double totalKwh = totalWattHarian * jumlahHari / 1000; //divide 1000 for convert Watt to KWatt
 
         DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getNumberInstance();
-        decimalFormat.applyPattern("###,###");
+        decimalFormat.applyPattern("###,###.#####");
         DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
         decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         decimalFormat.setDecimalSeparatorAlwaysShown(false);
 
-        TextView totalPemakaianListrikTextView = (TextView) findViewById(R.id.totalPemakaianListrikTextView);
-        String totalWattHarianString = decimalFormat.format(totalKwh) + " KwH ";
-        totalPemakaianListrikTextView.setText(totalWattHarianString);
+        TextView totalUsageListrikTextView = (TextView) findViewById(R.id.totalUsageListrikTextView);
+        String totalKwHString = decimalFormat.format(totalKwh) + " KwH ";
+        totalUsageListrikTextView.setText(totalKwHString);
 
-        double biayaPemakaianPerKwh = (double) biayaListrikPreferences.getFloat("biaya_pemakaian_per_kwh", 0);
+        double biayaUsagePerKwh = (double) biayaListrikPreferences.getFloat("biaya_usage_per_kwh", 0);
         double biayaBeban = (double) biayaListrikPreferences.getFloat("biaya_beban", 0);
         double biayaLainnya = (double) biayaListrikPreferences.getFloat("biaya_lainnya", 0);
 
-        double totalBiayaBulanan = totalKwh * biayaPemakaianPerKwh;
+        double totalBiayaBulanan = totalKwh * biayaUsagePerKwh;
         totalBiayaBulanan = totalBiayaBulanan + biayaBeban + biayaLainnya;
 
         decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
@@ -124,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         String totalBiayaBulananString = decimalFormat.format(totalBiayaBulanan);
         totalBiayaListrikTextView.setText(totalBiayaBulananString);
 
-
     }
 
 
@@ -134,101 +144,100 @@ public class MainActivity extends AppCompatActivity {
         int jumlahHariInPreferences = biayaListrikPreferences.getInt("jumlah_hari", 30);
         jumlahHariEditText.setText(String.valueOf(jumlahHariInPreferences));
 
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        jumlahHariEditText.clearFocus();
-        jumlahHariEditText.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int jumlahHari;
-                try {
-                    jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
-                } catch (NumberFormatException e) {
-                    jumlahHari = 0;
-                }
-                if (jumlahHari > 0 && jumlahHari < 31) {
-
-                    SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
-                    biayaListrikEditPref.putInt("jumlah_hari", jumlahHari);
-                    biayaListrikEditPref.apply();
-
-                    kalkulasiTotal();
-                }
-            }
-        });
-
-        Button kurangiHariButton = (Button) findViewById(R.id.kurangiHariButton);
-        kurangiHariButton.setOnClickListener(new View.OnClickListener() {
-
+        jumlahHariEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int jumlahHari;
+                jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
 
-                int jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
-                jumlahHari = jumlahHari - 1;
-                if (jumlahHari < 1)
-                    jumlahHari = 1;
-                jumlahHariEditText.setText(String.valueOf(jumlahHari));
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+                alert.setTitle("Jumlah Hari: ");
+                final NumberPicker np = new NumberPicker(v.getContext());
+
+                np.setMinValue(1);
+                np.setMaxValue(10000);
+                np.setWrapSelectorWheel(false);
+                np.setValue(jumlahHari);
+
+                np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        int jumlahHari = newVal;
+                        jumlahHariEditText.setText(String.valueOf(jumlahHari));
+
+                        SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
+                        biayaListrikEditPref.putInt("jumlah_hari", jumlahHari);
+                        biayaListrikEditPref.apply();
+
+                        kalkulasiTotal();
+
+                    }
+                });
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        np.clearFocus();
+                        int jumlahHari = np.getValue();
+                        jumlahHariEditText.setText(String.valueOf(jumlahHari));
+
+                        SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
+                        biayaListrikEditPref.putInt("jumlah_hari", jumlahHari);
+                        biayaListrikEditPref.apply();
+
+                        kalkulasiTotal();
+                    }
+                });
+
+
+                final FrameLayout parent = new FrameLayout(v.getContext());
+                parent.addView(np, new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                        Gravity.CENTER));
+
+                alert.setView(parent);
+                alert.show().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
             }
         });
-
-        Button tambahHariEditText = (Button) findViewById(R.id.tambahHariEditText);
-        tambahHariEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
-                jumlahHari = jumlahHari + 1;
-                if (jumlahHari > 31)
-                    jumlahHari = 31;
-                jumlahHariEditText.setText(String.valueOf(jumlahHari));
-            }
-        });
-
 
     }
 
-    private void initTambahFloatingButton() {
-        FloatingActionButton tambahElektronikFloatingButton = (FloatingActionButton) findViewById(R.id.tambah_pemakaian_floating_button);
-        tambahElektronikFloatingButton.setOnClickListener(new View.OnClickListener() {
+    private void initTambahUsageButton() {
+        ImageButton tambahUsageButton = (ImageButton) findViewById(R.id.tambahUsageButton);
+        tambahUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pemakaianActivity = new Intent(view.getContext(), PemakaianActivity.class);
-                Pemakaian pemakaian = null;
-                pemakaianActivity.putExtra("pemakaian", pemakaian);
-                ArrayList<Elektronik> elektronikList = databaseSimulatorPLN.getElektronikList();
-                pemakaianActivity.putParcelableArrayListExtra("elektronikList", elektronikList);
-                startActivityForResult(pemakaianActivity, PEMAKAIAN_ACTIVITY_REQ);
+                Intent usageActivity = new Intent(view.getContext(), UsageActivity.class);
+                Usage usage = null;
+                usageActivity.putExtra("usage", usage);
+                ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
+                usageActivity.putParcelableArrayListExtra("electronicList", electronicList);
+                startActivityForResult(usageActivity, PEMAKAIAN_ACTIVITY_REQ);
             }
         });
     }
 
-    private void initListPemakaian() {
-        ArrayList<Pemakaian> pemakaianList = databaseSimulatorPLN.getPemakaianList();
+    private void initListUsage() {
+        ArrayList<Usage> usageList = dbConnection.getUsageList();
 
-        ListView list = (ListView) findViewById(R.id.pemakaianListView);
+        ListView list = (ListView) findViewById(R.id.usageListView);
 
-        ListAdapter adapter = new PengaturanListAdapter(this, pemakaianList);
+        ListAdapter adapter = new UsageListAdapter(this, usageList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent pemakaianActivity = new Intent(view.getContext(), PemakaianActivity.class);
-                Pemakaian pemakaian = (Pemakaian) parent.getItemAtPosition(position);
-                pemakaianActivity.putExtra("pemakaian", pemakaian);
-                ArrayList<Elektronik> elektronikList = databaseSimulatorPLN.getElektronikList();
-                pemakaianActivity.putParcelableArrayListExtra("elektronikList", elektronikList);
+                Intent usageActivity = new Intent(view.getContext(), UsageActivity.class);
+                Usage usage = (Usage) parent.getItemAtPosition(position);
+                usageActivity.putExtra("usage", usage);
+                ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
+                usageActivity.putParcelableArrayListExtra("electronicList", electronicList);
 
-                startActivityForResult(pemakaianActivity, PEMAKAIAN_ACTIVITY_REQ);
+                startActivityForResult(usageActivity, PEMAKAIAN_ACTIVITY_REQ);
             }
 
         });
@@ -242,8 +251,8 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
             biayaListrikEditPref.putBoolean("has_initiated", true);
-            float biayaPemakaianPerKwh = (float) 1509.03;
-            biayaListrikEditPref.putFloat("biaya_pemakaian_per_kwh", biayaPemakaianPerKwh);
+            float biayaUsagePerKwh = (float) 1509.03;
+            biayaListrikEditPref.putFloat("biaya_usage_per_kwh", biayaUsagePerKwh);
             biayaListrikEditPref.putFloat("biaya_beban", 0);
             biayaListrikEditPref.putFloat("biaya_lainnya", 0);
             biayaListrikEditPref.putInt("jumlah_hari", 30);
@@ -258,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        initListPemakaian();
+        initListUsage();
         kalkulasiTotal();
     }
 
@@ -284,44 +293,41 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, BIAYA_LISTRIK_ACTIVITY_REQ);
 
             return true;
-        } else if (id == R.id.action_jenis_elektronik) {
+        }else if (id == R.id.action_jenis_elektronik) {
 
-            Intent intent = new Intent(this, ListElektronikActivity.class);
+            Intent intent = new Intent(this, ElectronicListActivity.class);
             startActivity(intent);
 
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
-
 
 }
 
 
-
-class PengaturanListAdapter extends BaseAdapter {
+class UsageListAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<Pemakaian> pemakaianList;
+    private ArrayList<Usage> usageList;
     private static LayoutInflater inflater=null;
 
-    public PengaturanListAdapter(Activity activity, ArrayList<Pemakaian> pemakaianList) {
+    public UsageListAdapter(Activity activity, ArrayList<Usage> usageList) {
         this.activity = activity;
-        this.pemakaianList =pemakaianList;
+        this.usageList = usageList;
         inflater = (LayoutInflater) this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
     public int getCount() {
-        return pemakaianList.size();
+        return usageList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return pemakaianList.get(position);
+        return usageList.get(position);
     }
 
     @Override
@@ -334,27 +340,22 @@ class PengaturanListAdapter extends BaseAdapter {
 
         View view=convertView;
         if(convertView==null)
-            view = inflater.inflate(R.layout.list_pemakaian, null);
+            view = inflater.inflate(R.layout.list_usage, null);
 
 
         TextView namaElektronikOnListRow = (TextView)view.findViewById(R.id.namaElektronikOnListRow);
-        TextView dayaWattOnListRow = (TextView)view.findViewById(R.id.dayaWattOnListRow);
-        TextView jumlahPemakaianJamOnListRow = (TextView)view.findViewById(R.id.jumlahPemakaianJamOnListRow);
+        TextView totalWattagePerDayOnListRow = (TextView)view.findViewById(R.id.totalWattagePerDayOnListRow);
+        TextView totalUsageHoursPerDayOnListRow = (TextView)view.findViewById(R.id.totalUsageHoursPerDayOnListRow);
         TextView jumlahBarangOnListRow = (TextView) view.findViewById(R.id.jumlahBarangOnListRow);
 
 
-        Pemakaian pemakaian = pemakaianList.get(position);
+        Usage usage = usageList.get(position);
 
         try {
-            namaElektronikOnListRow.setText(pemakaian.getElektronik().getNamaElektronik());
-            dayaWattOnListRow.setText(String.valueOf(pemakaian.getElektronik().getDayaWatt()) + " watt");
-
-            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
-            Calendar lamaPemakaianTime = Calendar.getInstance();
-            int jumlahPemakaianMenit = (int) ( (pemakaian.getJumlahPemakaianJam() - Math.floor( pemakaian.getJumlahPemakaianJam())) * 60) ;
-            lamaPemakaianTime.set(0, 0, 0, (int) pemakaian.getJumlahPemakaianJam(), jumlahPemakaianMenit);
-            jumlahPemakaianJamOnListRow.setText( sdf.format(lamaPemakaianTime.getTime()));
-            jumlahBarangOnListRow.setText(String.valueOf(pemakaian.getJumlahBarang()) + " buah");
+            namaElektronikOnListRow.setText(usage.getElectronic().getElectronicName());
+            totalWattagePerDayOnListRow.setText(String.valueOf(usage.getTotalWattagePerDay()) + " watt");
+            totalUsageHoursPerDayOnListRow.setText(String.valueOf(usage.getTotalUsageHoursPerDay())+" jam");
+            jumlahBarangOnListRow.setText(String.valueOf(usage.getNumberOfElectronic()) + " buah");
         }catch (Exception e){
             Log.e("MAinActivity", e.getMessage());
         }
@@ -365,7 +366,7 @@ class PengaturanListAdapter extends BaseAdapter {
 }
 
 //DONE:Changing harga listrik, tapi total bulanan tidak langsung berubah
-//DONE:Tambah/Ubah Form Elektronik
+//DONE:Tambah/Ubah Form Electronic
 //DONE:Atur masa perhitungan, jangan statik per bulan, ada scroller dg bilangan harian
 //DONE : Total harian per jenis elektronik
 //DONE:Biaya tariff lainnya in indonesia rupiah format beautiful

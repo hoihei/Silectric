@@ -2,8 +2,8 @@
     <string name="app_name">Simulator Tagihan Listrik</string>
 
     <string name="kalkulasikan_button">Kalkulasikan</string>
-    <string name="title_activity_pengaturan_biaya_listrik">Biaya Listrik</string>
-    <string name="title_activity_pemakaian">Aktivitas</string>
+    <string name="title_activity_pengaturan_biaya_listrik"> </string>
+    <string name="title_activity_usage"> </string>
     <string name="title_activity_settings">Settings</string>
 
 </resources>

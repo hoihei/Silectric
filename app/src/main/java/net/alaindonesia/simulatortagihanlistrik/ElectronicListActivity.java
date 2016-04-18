@@ -13,18 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.DatabaseSimulatorPLN;
-import net.alaindonesia.simulatortagihanlistrik.model.Elektronik;
+import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
+import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
 
 import java.util.ArrayList;
 
-public class ListElektronikActivity extends AppCompatActivity {
+public class ElectronicListActivity extends AppCompatActivity {
 
-    private DatabaseSimulatorPLN databaseSimulatorPLN;
+    private DbConnection dbConnection;
 
     public static final int RESULT_ACTIVITY_DELETE_ELEKTRONIK = 2;
     private static final int ELEKTRONIK_ACTIVITY_REQ = 1;
@@ -32,14 +33,13 @@ public class ListElektronikActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_elektronik);
+        setContentView(R.layout.activity_list_electronic);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.listElektronikToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        databaseSimulatorPLN = new DatabaseSimulatorPLN(this);
+        dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
 
         initListElektronik();
         initTambahFloatingButton();
@@ -47,19 +47,19 @@ public class ListElektronikActivity extends AppCompatActivity {
 
 
     private void initListElektronik(){
-        ArrayList<Elektronik> elektronikList = databaseSimulatorPLN.getElektronikList();
+        ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
 
         ListView list = (ListView)findViewById(R.id.elektronikListView);
 
-        ListAdapter adapter = new ElektronikListAdapter(this, elektronikList);
+        ListAdapter adapter = new ElektronikListAdapter(this, electronicList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent elektronikActivity = new Intent(view.getContext(), ElektronikActivity.class);
-                Elektronik elektronik = (Elektronik) parent.getItemAtPosition(position);
-                elektronikActivity.putExtra("elektronik", elektronik);
+                Intent elektronikActivity = new Intent(view.getContext(), ElectronicActivity.class);
+                Electronic electronic = (Electronic) parent.getItemAtPosition(position);
+                elektronikActivity.putExtra("electronic", electronic);
 
                 startActivityForResult(elektronikActivity, ELEKTRONIK_ACTIVITY_REQ);
             }
@@ -68,14 +68,16 @@ public class ListElektronikActivity extends AppCompatActivity {
 
     }
 
+
+
     private void initTambahFloatingButton(){
-        FloatingActionButton tambahJenisElektronikFloating = (FloatingActionButton) findViewById(R.id.tambah_jenis_elektronik_floating_button);
+        ImageButton tambahJenisElektronikFloating = (ImageButton) findViewById(R.id.addElectronicButton);
         tambahJenisElektronikFloating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent elektronikActivity = new Intent(view.getContext(), ElektronikActivity.class);
-                Elektronik elektronik = null;
-                elektronikActivity.putExtra("elektronik", elektronik);
+                Intent elektronikActivity = new Intent(view.getContext(), ElectronicActivity.class);
+                Electronic electronic = null;
+                elektronikActivity.putExtra("electronic", electronic);
 
                 startActivityForResult(elektronikActivity, ELEKTRONIK_ACTIVITY_REQ);
             }
@@ -87,19 +89,19 @@ public class ListElektronikActivity extends AppCompatActivity {
 
         if (requestCode == ELEKTRONIK_ACTIVITY_REQ) {
             if ( resultCode == Activity.RESULT_OK) {
-                Elektronik elektronik = data.getParcelableExtra("elektronik");
+                Electronic electronic = data.getParcelableExtra("electronic");
 
-                if (elektronik.getIdElektronik() == 0) {
-                    databaseSimulatorPLN.addElektronik(elektronik);
+                if (electronic.getIdElectronic() == 0) {
+                    dbConnection.addElectronic(electronic);
 
                 } else {
-                    databaseSimulatorPLN.editElektronik(elektronik);
+                    dbConnection.editElectronic(electronic);
                 }
 
             }else if (resultCode == RESULT_ACTIVITY_DELETE_ELEKTRONIK){
-                Elektronik elektronik = data.getParcelableExtra("elektronik");
-                int idElektronik = elektronik.getIdElektronik();
-                databaseSimulatorPLN.deleteElektronik(idElektronik);
+                Electronic electronic = data.getParcelableExtra("electronic");
+                int idElektronik = electronic.getIdElectronic();
+                dbConnection.deleteElectronic(idElektronik);
             }
             initListElektronik();
         }
@@ -111,24 +113,24 @@ public class ListElektronikActivity extends AppCompatActivity {
 class ElektronikListAdapter extends BaseAdapter {
 
     private Activity activity;
-    private ArrayList<Elektronik> elektronikList;
+    private ArrayList<Electronic> electronicList;
     private static LayoutInflater inflater=null;
 
-    public ElektronikListAdapter(Activity activity, ArrayList<Elektronik> elektronikList) {
+    public ElektronikListAdapter(Activity activity, ArrayList<Electronic> electronicList) {
         this.activity = activity;
-        this.elektronikList = elektronikList;
+        this.electronicList = electronicList;
         inflater = (LayoutInflater) this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
     public int getCount() {
-        return elektronikList.size();
+        return electronicList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return elektronikList.get(position);
+        return electronicList.get(position);
     }
 
     @Override
@@ -141,17 +143,15 @@ class ElektronikListAdapter extends BaseAdapter {
 
         View view=convertView;
         if(convertView==null)
-            view = inflater.inflate(R.layout.list_elektronik, null);
+            view = inflater.inflate(R.layout.list_elektronic, null);
 
-        TextView namaInListElektronik = (TextView)view.findViewById(R.id.namaInListElektronik);
-        TextView dayaInListElektronik = (TextView)view.findViewById(R.id.dayaInListElektronik);
+        TextView namaInListElektronik = (TextView)view.findViewById(R.id.electronicNameInListElektronik);
 
-        Elektronik elektronik = elektronikList.get(position);
+        Electronic electronic = electronicList.get(position);
 
         try {
 
-            namaInListElektronik.setText(elektronik.getNamaElektronik());
-            dayaInListElektronik.setText(String.format("%s watt", String.valueOf(elektronik.getDayaWatt())));
+            namaInListElektronik.setText(electronic.getElectronicName());
 
 
         }catch (Exception e){
@@ -160,5 +160,7 @@ class ElektronikListAdapter extends BaseAdapter {
 
         return view;
     }
+
+
 
 }

@@ -1,0 +1,439 @@
+{
+  "example" : {
+    "Usage": [
+      {
+        "idUsage": 1,
+        "idElectronic": 1,
+        "totalUsageHoursPerDay": 12,
+        "totalWattagePerDay": 12,
+        "numberOfElectronic": 1
+      }
+    ],
+    "TimeUsage":[
+      {
+        "idUsage" : 1,
+        "usageMode" : 1,
+        "wattage" : 600,
+        "hours" : 3,
+        "minutes" : 0
+
+      }
+    ]
+  },
+  "UsageMode":[
+    {
+      "idUsageMode": 1,
+      "usageModeName": "Normal"
+    },
+    {
+      "idUsageMode": 2,
+      "usageModeName": "Standby"
+    },
+    {
+      "idUsageMode" :3,
+      "usageModeName" : "Inverter"
+    }
+  ],
+  "Electronic": [
+    {
+      "idElectronic": 1,
+      "electronicName": "AC 0.5 PK",
+      "wattage": {
+        "1": 400,
+        "2": 5,
+        "3": 100
+      }
+    },
+    {
+      "idElectronic": 2,
+      "electronicName": "AC 1 PK",
+      "wattage": {
+        "1": 840
+      }
+    },
+    {
+      "idElectronic": 3,
+      "electronicName": "AC 1.5 PK",
+      "wattage": {
+        "1": 1170
+      }
+    },
+    {
+      "idElectronic": 4,
+      "electronicName": "AC 2 PK",
+      "wattage": {
+        "1": 1920
+      }
+    },
+    {
+      "idElectronic": 5,
+      "electronicName": "AC 2.5 PK",
+      "wattage": {
+        "1": 2570
+      }
+    },
+    {
+      "idElectronic": 6,
+      "electronicName": "Akuarium Besar",
+      "wattage": {
+        "1": 250
+      }
+    },
+    {
+      "idElectronic": 7,
+      "electronicName": "Akuarium Kecil",
+      "wattage": {
+        "1": 50
+      }
+    },
+    {
+      "idElectronic": 8,
+      "electronicName": "Audio/ Stereo Set.",
+      "wattage": {
+        "1": 50
+      }
+    },
+    {
+      "idElectronic": 9,
+      "electronicName": "Blender ",
+      "wattage": {
+        "1": 130
+      }
+    },
+    {
+      "idElectronic": 10,
+      "electronicName": "Charger Handphone",
+      "wattage": {
+        "1": 5
+      }
+    },
+    {
+      "idElectronic": 11,
+      "electronicName": "Dispenser (Menyala)",
+      "wattage": {
+        "1": 250
+      }
+    },
+    {
+      "idElectronic": 12,
+      "electronicName": "Dispenser (Standby)",
+      "wattage": {
+        "1": 6
+      }
+    },
+    {
+      "idElectronic": 13,
+      "electronicName": "DVD Player",
+      "wattage": {
+        "1": 25
+      }
+    },
+    {
+      "idElectronic": 14,
+      "electronicName": "Hair dryer",
+      "wattage": {
+        "1": 1200
+      }
+    },
+    {
+      "idElectronic": 15,
+      "electronicName": "Handphone Charger",
+      "wattage": {
+        "1": 5
+      }
+    },
+    {
+      "idElectronic": 16,
+      "electronicName": "Heater ",
+      "wattage": {
+        "1": 750
+      }
+    },
+    {
+      "idElectronic": 17,
+      "electronicName": "Internet ADSL Router",
+      "wattage": {
+        "1": 10
+      }
+    },
+    {
+      "idElectronic": 18,
+      "electronicName": "Internet Wifi Router",
+      "wattage": {
+        "1": 10
+      }
+    },
+    {
+      "idElectronic": 19,
+      "electronicName": "Kipas Angin",
+      "wattage": {
+        "1": 103
+      }
+    },
+    {
+      "idElectronic": 20,
+      "electronicName": "Kompor Listrik",
+      "wattage": {
+        "1": 380
+      }
+    },
+    {
+      "idElectronic": 21,
+      "electronicName": "Komputer + Monitor",
+      "wattage": {
+        "1": 250
+      }
+    },
+    {
+      "idElectronic": 22,
+      "electronicName": "Komputer Standby",
+      "wattage": {
+        "1": 30
+      }
+    },
+    {
+      "idElectronic": 23,
+      "electronicName": "Kulkas (Kompressor Standby)",
+      "wattage": {
+        "1": 10
+      }
+    },
+    {
+      "idElectronic": 24,
+      "electronicName": "Lampu 100 Watt",
+      "wattage": {
+        "1": 100
+      }
+    },
+    {
+      "idElectronic": 25,
+      "electronicName": "Lampu 11 Watt",
+      "wattage": {
+        "1": 11
+      }
+    },
+    {
+      "idElectronic": 26,
+      "electronicName": "Lampu 18 Watt",
+      "wattage": {
+        "1": 18
+      }
+    },
+    {
+      "idElectronic": 27,
+      "electronicName": "Lampu 20 Watt",
+      "wattage": {
+        "1": 20
+      }
+    },
+    {
+      "idElectronic": 28,
+      "electronicName": "Lampu 3 Watt",
+      "wattage": {
+        "1": 3
+      }
+    },
+    {
+      "idElectronic": 29,
+      "electronicName": "Lampu 35 Watt",
+      "wattage": {
+        "1": 35
+      }
+    },
+    {
+      "idElectronic": 30,
+      "electronicName": "Lampu 5 Watt",
+      "wattage": {
+        "1": 5
+      }
+    },
+    {
+      "idElectronic": 31,
+      "electronicName": "Lampu 65 Watt",
+      "wattage": {
+        "1": 65
+      }
+    },
+    {
+      "idElectronic": 32,
+      "electronicName": "Lampu 75 Watt",
+      "wattage": {
+        "1": 75
+      }
+    },
+    {
+      "idElectronic": 33,
+      "electronicName": "Lampu 12 Watt",
+      "wattage": {
+        "1": 12
+      }
+    },
+    {
+      "idElectronic": 34,
+      "electronicName": "Lampu 15 Watt",
+      "wattage": {
+        "1": 15
+      }
+    },
+    {
+      "idElectronic": 35,
+      "electronicName": "Lampu 23 Watt",
+      "wattage": {
+        "1": 23
+      }
+    },
+    {
+      "idElectronic": 36,
+      "electronicName": "Lampu 25 Watt",
+      "wattage": {
+        "1": 25
+      }
+    },
+    {
+      "idElectronic": 37,
+      "electronicName": "Lampu 8 Watt",
+      "wattage": {
+        "1": 8
+      }
+    },
+    {
+      "idElectronic": 38,
+      "electronicName": "Laptop",
+      "wattage": {
+        "1": 75
+      }
+    },
+    {
+      "idElectronic": 39,
+      "electronicName": "Magic Jar (Memasak)",
+      "wattage": {
+        "1": 400
+      }
+    },
+    {
+      "idElectronic": 40,
+      "electronicName": "Magic Jar (Menghangatkan)",
+      "wattage": {
+        "1": 50
+      }
+    },
+    {
+      "idElectronic": 41,
+      "electronicName": "Mesin Cuci",
+      "wattage": {
+        "1": 300
+      }
+    },
+    {
+      "idElectronic": 42,
+      "electronicName": "Mesin Kopi",
+      "wattage": {
+        "1": 900
+      }
+    },
+    {
+      "idElectronic": 43,
+      "electronicName": "Microwave",
+      "wattage": {
+        "1": 1270
+      }
+    },
+    {
+      "idElectronic": 44,
+      "electronicName": "Pemanas Air",
+      "wattage": {
+        "1": 400
+      }
+    },
+    {
+      "idElectronic": 45,
+      "electronicName": "Pompa Air",
+      "wattage": {
+        "1": 650
+      }
+    },
+    {
+      "idElectronic": 46,
+      "electronicName": "Radio ",
+      "wattage": {
+        "1": 10
+      }
+    },
+    {
+      "idElectronic": 47,
+      "electronicName": "Set Decoder TV Box",
+      "wattage": {
+        "1": 50
+      }
+    },
+    {
+      "idElectronic": 48,
+      "electronicName": "Set Parabola",
+      "wattage": {
+        "1": 50
+      }
+    },
+    {
+      "idElectronic": 49,
+      "electronicName": "Setrika",
+      "wattage": {
+        "1": 300
+      }
+    },
+    {
+      "idElectronic": 50,
+      "electronicName": "TV 19 Inchi",
+      "wattage": {
+        "1": 70,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 51,
+      "electronicName": "TV 27 Inchi",
+      "wattage": {
+        "1": 110,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 52,
+      "electronicName": "TV 36 Inchi",
+      "wattage": {
+        "1": 130,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 53,
+      "electronicName": "TV 53 Inchi",
+      "wattage": {
+        "1": 170,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 54,
+      "electronicName": "TV Standby",
+      "wattage": {
+        "1": 10,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 55,
+      "electronicName": "Kulkas (Kompressor Menyala)",
+      "wattage": {
+        "1": 50,
+        "Standby": 5
+      }
+    },
+    {
+      "idElectronic": 56,
+      "electronicName": "Vacuum cleaner",
+      "wattage": {
+        "1": "1000);"
+      }
+    }
+  ]
+}
