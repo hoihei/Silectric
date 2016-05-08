@@ -39,7 +39,7 @@ public class ElectronicListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
+        dbConnection = new DbConnection(this);
 
         initListElektronik();
         initTambahFloatingButton();
@@ -88,21 +88,7 @@ public class ElectronicListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == ELEKTRONIK_ACTIVITY_REQ) {
-            if ( resultCode == Activity.RESULT_OK) {
-                Electronic electronic = data.getParcelableExtra("electronic");
 
-                if (electronic.getIdElectronic() == 0) {
-                    dbConnection.addElectronic(electronic);
-
-                } else {
-                    dbConnection.editElectronic(electronic);
-                }
-
-            }else if (resultCode == RESULT_ACTIVITY_DELETE_ELEKTRONIK){
-                Electronic electronic = data.getParcelableExtra("electronic");
-                int idElektronik = electronic.getIdElectronic();
-                dbConnection.deleteElectronic(idElektronik);
-            }
             initListElektronik();
         }
     }

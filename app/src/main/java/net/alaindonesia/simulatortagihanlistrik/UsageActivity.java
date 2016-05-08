@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
 import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
+import net.alaindonesia.simulatortagihanlistrik.model.ElectronicTimeUsageTemplate;
 import net.alaindonesia.simulatortagihanlistrik.model.Usage;
 import net.alaindonesia.simulatortagihanlistrik.model.TimeUsage;
 import net.alaindonesia.simulatortagihanlistrik.model.UsageMode;
@@ -40,7 +41,7 @@ public class UsageActivity extends AppCompatActivity {
     private Usage usage;
     private DbConnection dbConnection;
     private boolean isNewUsage=false;
-    private ArrayList<TimeUsage> timeUsageList;
+    private ArrayList<TimeUsage> timeUsageArrayList;
 
 
     @Override
@@ -51,7 +52,7 @@ public class UsageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
+        dbConnection = new DbConnection(this);
 
         ImageButton deleteUsageButton =  (ImageButton) findViewById(R.id.deleteUsageButton);
 
@@ -60,10 +61,7 @@ public class UsageActivity extends AppCompatActivity {
             usage = new Usage(dbConnection.getDefaultElectronic(), 1);
             isNewUsage = true;
             deleteUsageButton.setVisibility(View.INVISIBLE);
-
-        }else
-            deleteUsageButton.setVisibility(View.VISIBLE);
-
+        }else deleteUsageButton.setVisibility(View.VISIBLE);
 
         initUsageForm();
         initSaveButton();
@@ -72,29 +70,28 @@ public class UsageActivity extends AppCompatActivity {
     }
 
     private void initUsageForm() {
-        Spinner electronicSpinnerSpinner = (Spinner) findViewById(R.id.namaElektronikSpinner);
+        Spinner electronicSpinner = (Spinner) findViewById(R.id.namaElektronikSpinner);
         ImageButton addTimeUsageButton = (ImageButton) findViewById(R.id.addTimeUsageButton);
 
         EditText numberOfElectronicTextView = (EditText) findViewById(R.id.numberOfElectronicTextView);
-        List<Electronic> electronicList = getIntent().getParcelableArrayListExtra("electronicList");
-        timeUsageList = dbConnection.getTimeUsagesByIdUsage(usage.getIdUsage());
+        ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
 
-        initElektronikSpinner(electronicSpinnerSpinner, electronicList);
+        timeUsageArrayList = dbConnection.getTimeUsagesByIdUsage(usage.getIdUsage());
+        initElektronikSpinner(electronicSpinner, electronicList);
         initNumberOfElectronicNumberPicker(numberOfElectronicTextView);
 
         initListTimeUsage();
 
-        Electronic electronic = usage.getElectronic();
+        Electronic electronicInUsage = usage.getElectronic();
         int jumlahBarang = usage.getNumberOfElectronic();
         numberOfElectronicTextView.setText(String.valueOf(jumlahBarang));
 
-        int elektronikSpinnerPosition = 0;
-        for (Electronic electronicInLIst : electronicList){
-            if(electronic.getIdElectronic() == electronicInLIst.getIdElectronic())
-                break;
-            elektronikSpinnerPosition++;
+        for (int i = 0; i < electronicList.size(); i ++) {
+            if(electronicInUsage.getIdElectronic() == electronicList.get(i).getIdElectronic()) {
+                electronicSpinner.setSelection(i);
+            }
         }
-        electronicSpinnerSpinner.setSelection(elektronikSpinnerPosition);
+
 
         addTimeUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +145,17 @@ public class UsageActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Electronic electronic = (Electronic) parent.getItemAtPosition(position);
+                if(isNewUsage) {
+                    ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList = dbConnection.getElectronicTimeUsageTemplateByIdElectronic(electronic.getIdElectronic());
+                    timeUsageArrayList.clear();
+
+                    for (ElectronicTimeUsageTemplate e: timeUsageTemplateArrayList) {
+                        timeUsageArrayList.add(new TimeUsage(isNewUsage, e.getIdUsageMode(), e.getWattage(), e.getHours(), e.getMinutes(), e.getUsageMode() ));
+                    }
+                    initListTimeUsage();
+
+                }
+
             }
 
             @Override
@@ -172,7 +180,7 @@ public class UsageActivity extends AppCompatActivity {
 
                 double totalUsageHoursPerDay=0;
                 int totalWattagePerDay=0;
-                for(TimeUsage timeUsage : timeUsageList){
+                for(TimeUsage timeUsage : timeUsageArrayList){
                     double hours = timeUsage.getHours() + (timeUsage.getMinutes()/60);
                     totalUsageHoursPerDay = totalUsageHoursPerDay + hours;
                     totalWattagePerDay = (int)( totalWattagePerDay + (hours * timeUsage.getWattage()));
@@ -182,10 +190,10 @@ public class UsageActivity extends AppCompatActivity {
                 usage.setTotalWattagePerDay(totalWattagePerDay);
 
                 if (isNewUsage) {
-                    dbConnection.addUsage(usage, timeUsageList);
+                    dbConnection.addUsage(usage, timeUsageArrayList);
                 } else {
 
-                    dbConnection.saveUsage(usage, timeUsageList);
+                    dbConnection.editUsage(usage, timeUsageArrayList);
                 }
 
 
@@ -215,7 +223,7 @@ public class UsageActivity extends AppCompatActivity {
     private void initListTimeUsage(){
         ListView listUsageListView = (ListView)findViewById(R.id.timeUsageListView);
 
-        ListAdapter timeUsageListAdapter = new TimeUsageListAdapter(this, timeUsageList);
+        ListAdapter timeUsageListAdapter = new TimeUsageListAdapter(this, timeUsageArrayList);
         listUsageListView.setAdapter(timeUsageListAdapter);
         listUsageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -278,15 +286,14 @@ public class UsageActivity extends AppCompatActivity {
                 int minutes = minutesInPopupTimeUsage.getValue();
 
                 if (isNewTimeUsage) {
-                    timeUsageList.add(new TimeUsage(isNewUsage, idUsageMode, wattage, hours, minutes, usageMode));
+                    timeUsageArrayList.add(new TimeUsage(isNewUsage, idUsageMode, wattage, hours, minutes, usageMode));
                     initListTimeUsage();
-                }else if(timeUsage != null){
+                }else {
 
                     timeUsage.setIdUsageMode(idUsageMode);
                     timeUsage.setWattage(wattage);
                     timeUsage.setHours(hours);
                     timeUsage.setMinutes(minutes);
-
 
                     initListTimeUsage();
                 }
@@ -299,7 +306,7 @@ public class UsageActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(timeUsage !=null){
-                    timeUsageList.remove(timeUsage);
+                    timeUsageArrayList.remove(timeUsage);
                     initListTimeUsage();
                 }
             }

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="5dip" >
+    android:padding="10dip" >
 
 
     <View
@@ -28,7 +28,6 @@
             android:id="@+id/electronicNameInListElektronik"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium"
             />
     </RelativeLayout>

@@ -15,7 +15,8 @@ public class Electronic implements Parcelable {
     }
 
     public Electronic(){
-        idElectronic =0;
+        this.idElectronic =0;
+        this.electronicName="";
     }
 
 

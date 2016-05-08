@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,14 +21,18 @@ import java.util.ArrayList;
 public class DbConnection extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ElectricUsageCostSimulation.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 16;
     private SQLiteDatabase thisDB;
-    InputStream initialDataStream;
+    InputStream initialDataStream = null;
 
-    public DbConnection(Context context,InputStream initialDataStream) {
+    public DbConnection(Context context, InputStream initialDataStream) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.initialDataStream = initialDataStream;
 
+    }
+
+    public DbConnection(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
 
@@ -104,6 +109,36 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
 
         return timeUsageLists;
+    }
+
+    public ArrayList<ElectronicTimeUsageTemplate> getElectronicTimeUsageTemplateByIdElectronic(int idElectronic) {
+        ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList  = new ArrayList<>();
+
+        String selectQuery = "SELECT 'ElectronicTimeUsageTemplate'.'idElectronicTimeUsageTemplate' , 'ElectronicTimeUsageTemplate'.'idElectronic' , 'ElectronicTimeUsageTemplate'.'idUsageMode' , 'ElectronicTimeUsageTemplate'.'wattage', 'ElectronicTimeUsageTemplate'.'hours' , 'ElectronicTimeUsageTemplate'.'minutes', 'UsageMode'.'usageModeName'  FROM ElectronicTimeUsageTemplate inner join 'UsageMode' on 'UsageMode'.idUsageMode = 'ElectronicTimeUsageTemplate'.idUsageMode  where idElectronic="+idElectronic;
+
+
+        openReadableDatabase();
+        Cursor cursor = thisDB.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int idTimeUsage = cursor.getInt(0);
+                idElectronic = cursor.getInt(1);
+                int idUsageMode = cursor.getInt(2);
+                int wattage = cursor.getInt(3);
+                int hours = cursor.getInt(4);
+                int minutes = cursor.getInt(5);
+                String usageModeName = cursor.getString(6);
+                timeUsageTemplateArrayList.add(new ElectronicTimeUsageTemplate(idTimeUsage, idElectronic, idUsageMode, wattage, hours, minutes, new UsageMode(idUsageMode, usageModeName)));
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        closeDatabase();
+
+        return timeUsageTemplateArrayList;
+
     }
 
     public ArrayList<Usage> getUsageList() {
@@ -201,7 +236,7 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
     }
 
-    public boolean saveUsage(Usage usage, ArrayList timeUsageList) {
+    public boolean editUsage(Usage usage, ArrayList timeUsageList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -224,27 +259,51 @@ public class DbConnection extends SQLiteOpenHelper {
 
 
 
-    public boolean addElectronic(Electronic Electronic) {
+    public boolean addElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("electronicName", Electronic.getElectronicName());
+        values.put("electronicName", electronic.getElectronicName());
 
         long result =  thisDB.insert("Electronic", null, values);
         closeDatabase();
+
+        updateElectronicTimeUsageTemplates(electronic.getIdElectronic(), electronicTimeUsageTemplatesArrayList);
 
         return result > 0;
 
     }
 
-    public boolean editElectronic(Electronic Electronic) {
+    private void updateElectronicTimeUsageTemplates(long idElectronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
+        openWritableDatabase();
+
+        thisDB.delete("ElectronicTimeUsageTemplate", "idElectronic=?", new String[]{String.valueOf(idElectronic)});
+
+        for (ElectronicTimeUsageTemplate e : electronicTimeUsageTemplatesArrayList){
+            ContentValues values = new ContentValues();
+            values.put("idElectronic", idElectronic);
+            values.put("idUsageMode", e.getIdUsageMode());
+            values.put("wattage", e.getWattage());
+            values.put("hours", e.getHours());
+            values.put("minutes", e.getMinutes());
+
+
+            thisDB.insert("ElectronicTimeUsageTemplate", null, values);
+
+        }
+
+        closeDatabase();
+    }
+
+    public boolean editElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("electronicName", Electronic.getElectronicName());
-        String[] whereArgs = {String.valueOf(Electronic.getIdElectronic()) };
+        values.put("electronicName", electronic.getElectronicName());
+        String[] whereArgs = {String.valueOf(electronic.getIdElectronic()) };
         long result = thisDB.update("Electronic", values, "idElectronic=?", whereArgs);
         closeDatabase();
+        updateElectronicTimeUsageTemplates(electronic.getIdElectronic(), electronicTimeUsageTemplatesArrayList);
 
         return result > 0;
 
@@ -254,6 +313,7 @@ public class DbConnection extends SQLiteOpenHelper {
         openWritableDatabase();
 
         thisDB.delete("Usage", "idUsage=?", new String[]{String.valueOf(usage.getIdUsage())});
+        thisDB.delete("TimeUsage", "idUsage=?", new String[]{String.valueOf(usage.getIdUsage())});
 
         closeDatabase();
     }
@@ -263,6 +323,7 @@ public class DbConnection extends SQLiteOpenHelper {
         openWritableDatabase();
 
         thisDB.delete("Electronic", "idElectronic=?", new String[]{String.valueOf(idElectronic)});
+        thisDB.delete("ElectronicTimeUsageTemplate", "idElectronic=?", new String[]{String.valueOf(idElectronic)});
 
         closeDatabase();
     }
@@ -273,18 +334,14 @@ public class DbConnection extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Electronic ('idElectronic' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'electronicName' TEXT NOT NULL);");
+        db.execSQL("CREATE TABLE ElectronicTimeUsageTemplate ('idElectronicTimeUsageTemplate' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'idElectronic' INTEGER NOT NULL,  'idUsageMode' INTEGER NOT NULL, 'wattage' INTEGER  NOT NULL  DEFAULT (1), 'hours' INTEGER NOT NULL DEFAULT (0), 'minutes' INTEGER NOT NULL DEFAULT (0));");
         db.execSQL("CREATE TABLE Usage ('idUsage' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,  'idElectronic' INTEGER  NOT NULL  DEFAULT (1), 'numberOfElectronic' INTEGER  NOT NULL  DEFAULT (0), 'totalUsageHoursPerDay' REAL NOT NULL DEFAULT (1), 'totalWattagePerDay' INTEGER NOT NULL DEFAULT (1));");
         db.execSQL("CREATE TABLE TimeUsage ('idTimeUsage' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'idUsage' INTEGER  NOT NULL  DEFAULT (1), 'idUsageMode' INTEGER NOT NULL, 'wattage' INTEGER  NOT NULL  DEFAULT (1), 'hours' INTEGER NOT NULL DEFAULT (0), 'minutes' INTEGER NOT NULL DEFAULT (0));");
         db.execSQL("CREATE TABLE UsageMode ('idUsageMode' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'usageModeName' TEXT NOT NULL);");
 
-        ArrayList<Electronic> electronicArrayList = new ArrayList<>();
-        ArrayList<UsageMode> usageModeArrayList = new ArrayList<>();
-
         try {
             Writer writer = new StringWriter();
             char[] buffer = new char[1024];
-
-            JSONObject initialDataJson = null;
 
             Reader reader = new BufferedReader(new InputStreamReader(initialDataStream, "UTF-8"));
             int n;
@@ -292,35 +349,40 @@ public class DbConnection extends SQLiteOpenHelper {
                 writer.write(buffer, 0, n);
             }
             String initialDataJsonStr = writer.toString();
-            initialDataJson = new JSONObject(initialDataJsonStr);
+            JSONObject initialDataJson = new JSONObject(initialDataJsonStr);
 
             JSONArray electronicsJsonArr = initialDataJson.getJSONArray("Electronic");
             for (int i = 0; i < electronicsJsonArr.length(); i++){
                 int idElectronic = electronicsJsonArr.getJSONObject(i).getInt("idElectronic");
                 String electronicName = electronicsJsonArr.getJSONObject(i).getString("electronicName");
-                electronicArrayList.add(new Electronic(idElectronic, electronicName));
+                db.execSQL("INSERT into Electronic('idElectronic', 'electronicName') values(" + idElectronic + ",'" + electronicName + "');");
+
+                JSONArray timeUsageTemplateJsonArray = electronicsJsonArr.getJSONObject(i).getJSONArray("TimeUsageTemplate");
+                for (int j = 0; j < timeUsageTemplateJsonArray.length(); j++) {
+                    int idUsageMode = timeUsageTemplateJsonArray.getJSONObject(j).getInt("idUsageMode");
+                    int wattage = timeUsageTemplateJsonArray.getJSONObject(j).getInt("wattage");
+                    int hours = timeUsageTemplateJsonArray.getJSONObject(j).getInt("hours");
+                    int minutes =timeUsageTemplateJsonArray.getJSONObject(j).getInt("minutes");
+                    db.execSQL("INSERT into ElectronicTimeUsageTemplate('idElectronic', 'idUsageMode', 'wattage', 'hours', 'minutes') values(" + idElectronic + "," + idUsageMode + "," + wattage + "," + hours + "," + minutes +  ");");
+                }
             }
 
             JSONArray usageModeJsonArr = initialDataJson.getJSONArray("UsageMode");
             for (int i = 0; i < usageModeJsonArr.length(); i++){
                 int idUsageMode = usageModeJsonArr.getJSONObject(i).getInt("idUsageMode");
                 String usageModeName = usageModeJsonArr.getJSONObject(i).getString("usageModeName");
-                usageModeArrayList.add(new UsageMode(idUsageMode, usageModeName));
+                db.execSQL("INSERT into UsageMode('idUsageMode', 'usageModeName') values(" + idUsageMode + ",'" + usageModeName + "');");
             }
 
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            db.execSQL("delete from Electronic");
+            db.execSQL("delete from ElectronicTimeUsageTemplate");
+
+            Log.d("DbConnection", e.toString());
+
         }
 
-        for (Electronic electronic : electronicArrayList) {
-            db.execSQL("INSERT into Electronic('idElectronic', 'electronicName') values(" + electronic.getIdElectronic() + ",'" + electronic.getElectronicName() + "');");
-        }
-
-        for (UsageMode usageMode : usageModeArrayList) {
-            String sql = "INSERT into UsageMode('idUsageMode', 'usageModeName') values(" + usageMode.getIdUsageMode() + ",'" + usageMode.getUsageModeName() + "');";
-            db.execSQL("INSERT into UsageMode('idUsageMode', 'usageModeName') values(" + usageMode.getIdUsageMode() + ",'" + usageMode.getUsageModeName() + "');");
-        }
 
     }
 
@@ -328,6 +390,8 @@ public class DbConnection extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         thisDB = db;
+
+        db.execSQL("DROP TABLE IF EXISTS ElectronicTimeUsageTemplate " );
         db.execSQL("DROP TABLE IF EXISTS TimeUsage " );
         db.execSQL("DROP TABLE IF EXISTS Electronic " );
         db.execSQL("DROP TABLE IF EXISTS Usage " );
@@ -375,4 +439,6 @@ public class DbConnection extends SQLiteOpenHelper {
 
         return usageModeList;
     }
+
+
 }

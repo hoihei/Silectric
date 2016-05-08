@@ -38,402 +38,396 @@
     {
       "idElectronic": 1,
       "electronicName": "AC 0.5 PK",
-      "wattage": {
-        "1": 400,
-        "2": 5,
-        "3": 100
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode" : 1, "wattage" : 440, "hours" : 4, "minutes" : 0  },
+        {"idUsageMode" : 2, "wattage" : 5 , "hours" : 1, "minutes" : 0  },
+        {"idUsageMode": 3, "wattage" : 100 , "hours" : 4, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 2,
       "electronicName": "AC 1 PK",
-      "wattage": {
-        "1": 840
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  840, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 3,
       "electronicName": "AC 1.5 PK",
-      "wattage": {
-        "1": 1170
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  1170, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 4,
       "electronicName": "AC 2 PK",
-      "wattage": {
-        "1": 1920
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  1920, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 5,
       "electronicName": "AC 2.5 PK",
-      "wattage": {
-        "1": 2570
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  2570, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 6,
       "electronicName": "Akuarium Besar",
-      "wattage": {
-        "1": 250
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  250, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 7,
       "electronicName": "Akuarium Kecil",
-      "wattage": {
-        "1": 50
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 8,
       "electronicName": "Audio/ Stereo Set.",
-      "wattage": {
-        "1": 50
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 9,
       "electronicName": "Blender ",
-      "wattage": {
-        "1": 130
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  130, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 10,
       "electronicName": "Charger Handphone",
-      "wattage": {
-        "1": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  5, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 11,
       "electronicName": "Dispenser (Menyala)",
-      "wattage": {
-        "1": 250
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  250, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 12,
       "electronicName": "Dispenser (Standby)",
-      "wattage": {
-        "1": 6
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  6, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 13,
       "electronicName": "DVD Player",
-      "wattage": {
-        "1": 25
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  25, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 14,
       "electronicName": "Hair dryer",
-      "wattage": {
-        "1": 1200
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  1200, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 15,
       "electronicName": "Handphone Charger",
-      "wattage": {
-        "1": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  5, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 16,
       "electronicName": "Heater ",
-      "wattage": {
-        "1": 750
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  750, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 17,
       "electronicName": "Internet ADSL Router",
-      "wattage": {
-        "1": 10
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  10, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 18,
       "electronicName": "Internet Wifi Router",
-      "wattage": {
-        "1": 10
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  10, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 19,
       "electronicName": "Kipas Angin",
-      "wattage": {
-        "1": 103
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  103, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 20,
       "electronicName": "Kompor Listrik",
-      "wattage": {
-        "1": 380
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  380, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 21,
       "electronicName": "Komputer + Monitor",
-      "wattage": {
-        "1": 250
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  250, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 22,
       "electronicName": "Komputer Standby",
-      "wattage": {
-        "1": 30
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  30, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 23,
       "electronicName": "Kulkas (Kompressor Standby)",
-      "wattage": {
-        "1": 10
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  10, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 24,
       "electronicName": "Lampu 100 Watt",
-      "wattage": {
-        "1": 100
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  100, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 25,
       "electronicName": "Lampu 11 Watt",
-      "wattage": {
-        "1": 11
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  11, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 26,
       "electronicName": "Lampu 18 Watt",
-      "wattage": {
-        "1": 18
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  18, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 27,
       "electronicName": "Lampu 20 Watt",
-      "wattage": {
-        "1": 20
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  20, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 28,
       "electronicName": "Lampu 3 Watt",
-      "wattage": {
-        "1": 3
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  3, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 29,
       "electronicName": "Lampu 35 Watt",
-      "wattage": {
-        "1": 35
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  35, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 30,
       "electronicName": "Lampu 5 Watt",
-      "wattage": {
-        "1": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  5, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 31,
       "electronicName": "Lampu 65 Watt",
-      "wattage": {
-        "1": 65
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  65, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 32,
       "electronicName": "Lampu 75 Watt",
-      "wattage": {
-        "1": 75
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  75, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 33,
       "electronicName": "Lampu 12 Watt",
-      "wattage": {
-        "1": 12
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  12, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 34,
       "electronicName": "Lampu 15 Watt",
-      "wattage": {
-        "1": 15
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  15, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 35,
       "electronicName": "Lampu 23 Watt",
-      "wattage": {
-        "1": 23
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  23, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 36,
       "electronicName": "Lampu 25 Watt",
-      "wattage": {
-        "1": 25
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  25, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 37,
       "electronicName": "Lampu 8 Watt",
-      "wattage": {
-        "1": 8
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  8, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 38,
       "electronicName": "Laptop",
-      "wattage": {
-        "1": 75
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  75, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 39,
       "electronicName": "Magic Jar (Memasak)",
-      "wattage": {
-        "1": 400
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  400, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 40,
       "electronicName": "Magic Jar (Menghangatkan)",
-      "wattage": {
-        "1": 50
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 41,
       "electronicName": "Mesin Cuci",
-      "wattage": {
-        "1": 300
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  300, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 42,
       "electronicName": "Mesin Kopi",
-      "wattage": {
-        "1": 900
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  900, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 43,
       "electronicName": "Microwave",
-      "wattage": {
-        "1": 1270
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  1270, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 44,
       "electronicName": "Pemanas Air",
-      "wattage": {
-        "1": 400
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  400, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 45,
       "electronicName": "Pompa Air",
-      "wattage": {
-        "1": 650
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  650, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 46,
       "electronicName": "Radio ",
-      "wattage": {
-        "1": 10
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  10, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 47,
       "electronicName": "Set Decoder TV Box",
-      "wattage": {
-        "1": 50
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 48,
       "electronicName": "Set Parabola",
-      "wattage": {
-        "1": 50
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 49,
       "electronicName": "Setrika",
-      "wattage": {
-        "1": 300
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  300, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 50,
       "electronicName": "TV 19 Inchi",
-      "wattage": {
-        "1": 70,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  70, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 51,
       "electronicName": "TV 27 Inchi",
-      "wattage": {
-        "1": 110,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  110,  "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 52,
       "electronicName": "TV 36 Inchi",
-      "wattage": {
-        "1": 130,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  130, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 53,
       "electronicName": "TV 53 Inchi",
-      "wattage": {
-        "1": 170,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  170, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 54,
       "electronicName": "TV Standby",
-      "wattage": {
-        "1": 10,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  10, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 55,
       "electronicName": "Kulkas (Kompressor Menyala)",
-      "wattage": {
-        "1": 50,
-        "Standby": 5
-      }
-    },
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  50, "hours" : 1, "minutes" : 0 }
+      ]
+    }, 
     {
       "idElectronic": 56,
       "electronicName": "Vacuum cleaner",
-      "wattage": {
-        "1": "1000);"
-      }
+      "TimeUsageTemplate": [
+        {"idUsageMode": 1,  "wattage" :  1000, "hours" : 1, "minutes" : 0 }
+      ]
     }
   ]
 }

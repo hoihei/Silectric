@@ -27,7 +27,6 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
 import net.alaindonesia.simulatortagihanlistrik.model.Usage;
 import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
 
@@ -35,21 +34,28 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
+//TODO:Search feature in Template Elektronik
+//TODO:Search feauture in Spiner nama elektronik in usage activity
+//TODO:Add template feautre in spinner nama elektronik in usage activity
+//DONE:Templete for mode and activity
+//TODO:Adding or edit usageMode
 //DONE:Kwh show more detail decimal
 //DONE::Fake hari button
-//TODO:Usage jam non ticker tapi jam : menit dalam scroll value seperti quality time
-//TODO: Jam & menit dalam database
-//TODO: Delete jam dan menit di usage
+//DONE:Usage jam non ticker tapi jam : menit dalam scroll value seperti quality time
+//DONE: Jam & menit dalam database
+//DONE: Delete jam dan menit di usage
 //DONE: Title pada usage
 //DONE:Buton delete & simpan pisah lebar
 //DONE:Save button pada atur biaya listrik
 //DONE:Delete button in top left in usage activity
 //TODO:Usage jam not more than 24 batasan
-//TODO:pakai cara qualitytime app
+//DONE:pakai cara qualitytime app
 //DONE:On click layout, popup usage
-//TODO:Jam dalam bentuk Jam
-//TODO:Maximum jam is 24 in add usage
-//TODO:Populate db with initial data
+//DONE:Jam dalam bentuk Jam
+//TODO:KOmfirmasi saat hapus
+//TODO:Maximum jam is 24:00 in add usage, currently is 25:59
+//DONE:Populate db with initial data
+//TODO:Fix initial data with better values
 //TODO:Autosave, save button remind when keyboard up
 //TODO:Template Pemilihan jenis elektronik menggunakan listview daripada spinner
 //TODO:Atur templete pemilihan jenis elektronik
@@ -87,15 +93,12 @@ public class MainActivity extends AppCompatActivity {
         dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
 
         checkBiayaListrikPreferences();
-        initInputJumlahHari();
-        initTambahUsageButton();
+        initInputDays();
+        initAddUsageButton();
         initListUsage();
         kalkulasiTotal();
 
     }
-
-
-
 
     private void kalkulasiTotal() {
         EditText jumlahHariEditText = (EditText) findViewById(R.id.jumlahHariEditText);
@@ -137,8 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    private void initInputJumlahHari() {
+    private void initInputDays() {
 
         final EditText jumlahHariEditText = (EditText) findViewById(R.id.jumlahHariEditText);
         int jumlahHariInPreferences = biayaListrikPreferences.getInt("jumlah_hari", 30);
@@ -205,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initTambahUsageButton() {
+    private void initAddUsageButton() {
         ImageButton tambahUsageButton = (ImageButton) findViewById(R.id.tambahUsageButton);
         tambahUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,8 +215,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent usageActivity = new Intent(view.getContext(), UsageActivity.class);
                 Usage usage = null;
                 usageActivity.putExtra("usage", usage);
-                ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
-                usageActivity.putParcelableArrayListExtra("electronicList", electronicList);
                 startActivityForResult(usageActivity, PEMAKAIAN_ACTIVITY_REQ);
             }
         });
@@ -234,8 +234,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent usageActivity = new Intent(view.getContext(), UsageActivity.class);
                 Usage usage = (Usage) parent.getItemAtPosition(position);
                 usageActivity.putExtra("usage", usage);
-                ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
-                usageActivity.putParcelableArrayListExtra("electronicList", electronicList);
 
                 startActivityForResult(usageActivity, PEMAKAIAN_ACTIVITY_REQ);
             }
@@ -347,7 +345,6 @@ class UsageListAdapter extends BaseAdapter {
         TextView totalWattagePerDayOnListRow = (TextView)view.findViewById(R.id.totalWattagePerDayOnListRow);
         TextView totalUsageHoursPerDayOnListRow = (TextView)view.findViewById(R.id.totalUsageHoursPerDayOnListRow);
         TextView jumlahBarangOnListRow = (TextView) view.findViewById(R.id.jumlahBarangOnListRow);
-
 
         Usage usage = usageList.get(position);
 
