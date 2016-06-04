@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/listElektronikToolbar"
+                android:id="@+id/listElectronicToolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Templete Elektronik"
+                android:text="@string/electronic_template"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".PengaturanBiayaListrikActivity">
+    tools:context=".ElectricStaticFeeOptionsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/pengaturanBiayaListrikToolbar"
+                android:id="@+id/electricStaticFeeOptionsToolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -29,13 +29,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:text="Harga Listrik"
+                android:text="@string/option_electric_static_fees"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 />
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
                 style="@style/Widget.AppCompat.Button"
-                android:id="@+id/simpanBiayaListrikButton"
+                android:id="@+id/saveElectricFeeButton"
                 android:background="?attr/selectableItemBackground"
                 android:src="@android:drawable/ic_menu_save"
                 />
@@ -54,7 +54,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_pengaturan_biaya_listrik" />
+    <include layout="@layout/content_electric_static_fee_options" />
 
 
 

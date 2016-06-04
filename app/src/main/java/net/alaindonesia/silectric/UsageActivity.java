@@ -1,10 +1,9 @@
-package net.alaindonesia.simulatortagihanlistrik;
+package net.alaindonesia.silectric;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,12 +25,14 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
-import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
-import net.alaindonesia.simulatortagihanlistrik.model.ElectronicTimeUsageTemplate;
-import net.alaindonesia.simulatortagihanlistrik.model.Usage;
-import net.alaindonesia.simulatortagihanlistrik.model.TimeUsage;
-import net.alaindonesia.simulatortagihanlistrik.model.UsageMode;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
+import net.alaindonesia.silectric.model.DbConnection;
+import net.alaindonesia.silectric.model.Electronic;
+import net.alaindonesia.silectric.model.ElectronicTimeUsageTemplate;
+import net.alaindonesia.silectric.model.Usage;
+import net.alaindonesia.silectric.model.TimeUsage;
+import net.alaindonesia.silectric.model.UsageMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,28 +71,21 @@ public class UsageActivity extends AppCompatActivity {
     }
 
     private void initUsageForm() {
-        Spinner electronicSpinner = (Spinner) findViewById(R.id.namaElektronikSpinner);
+        SearchableSpinner electronicNameSpinner = (SearchableSpinner) findViewById(R.id.electronicNameSpinner);
         ImageButton addTimeUsageButton = (ImageButton) findViewById(R.id.addTimeUsageButton);
 
         EditText numberOfElectronicTextView = (EditText) findViewById(R.id.numberOfElectronicTextView);
         ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
 
         timeUsageArrayList = dbConnection.getTimeUsagesByIdUsage(usage.getIdUsage());
-        initElektronikSpinner(electronicSpinner, electronicList);
+        initElektronikSpinner(electronicNameSpinner, electronicList);
+
         initNumberOfElectronicNumberPicker(numberOfElectronicTextView);
 
         initListTimeUsage();
 
-        Electronic electronicInUsage = usage.getElectronic();
         int jumlahBarang = usage.getNumberOfElectronic();
         numberOfElectronicTextView.setText(String.valueOf(jumlahBarang));
-
-        for (int i = 0; i < electronicList.size(); i ++) {
-            if(electronicInUsage.getIdElectronic() == electronicList.get(i).getIdElectronic()) {
-                electronicSpinner.setSelection(i);
-            }
-        }
-
 
         addTimeUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +101,7 @@ public class UsageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
-                alert.setTitle("Jumlah Barang: ");
+                alert.setTitle(R.string.number_of_items + R.string.double_score);
                 final NumberPicker np = new NumberPicker(v.getContext());
 
                 np.setMinValue(1);
@@ -115,7 +109,7 @@ public class UsageActivity extends AppCompatActivity {
                 np.setWrapSelectorWheel(false);
                 np.setValue(usage.getNumberOfElectronic());
 
-                alert.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         np.clearFocus();
                         jumlahBarangTextView.setText(String.valueOf(np.getValue()));
@@ -135,22 +129,25 @@ public class UsageActivity extends AppCompatActivity {
         });
     }
 
-    private void initElektronikSpinner(Spinner electronicNameSpinner, List<Electronic> electronicList){
+    private void initElektronikSpinner(SearchableSpinner electronicNameSpinner, List<Electronic> electronicList){
 
         ArrayAdapter<Electronic> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, electronicList);
         electronicNameSpinner.setAdapter(dataAdapter);
 
 
+        electronicNameSpinner.setTitle("Pilih Jenis Elektronik");
+        electronicNameSpinner.setPositiveButton("Ok");
+
         electronicNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Electronic electronic = (Electronic) parent.getItemAtPosition(position);
-                if(isNewUsage) {
+                if (isNewUsage) {
                     ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList = dbConnection.getElectronicTimeUsageTemplateByIdElectronic(electronic.getIdElectronic());
                     timeUsageArrayList.clear();
 
-                    for (ElectronicTimeUsageTemplate e: timeUsageTemplateArrayList) {
-                        timeUsageArrayList.add(new TimeUsage(isNewUsage, e.getIdUsageMode(), e.getWattage(), e.getHours(), e.getMinutes(), e.getUsageMode() ));
+                    for (ElectronicTimeUsageTemplate e : timeUsageTemplateArrayList) {
+                        timeUsageArrayList.add(new TimeUsage(isNewUsage, e.getIdUsageMode(), e.getWattage(), e.getHours(), e.getMinutes(), e.getUsageMode()));
                     }
                     initListTimeUsage();
 
@@ -164,6 +161,15 @@ public class UsageActivity extends AppCompatActivity {
             }
 
         });
+
+        Electronic electronicInUsage = usage.getElectronic();
+
+        for (int i = 0; i < electronicList.size(); i ++) {
+            if(electronicInUsage.getIdElectronic() == electronicList.get(i).getIdElectronic()) {
+                electronicNameSpinner.setSelection(i);
+            }
+        }
+
     }
 
     private void initSaveButton(){
@@ -174,8 +180,8 @@ public class UsageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Spinner namaElektronikSpinner = (Spinner) findViewById(R.id.namaElektronikSpinner);
-                Electronic electronic = (Electronic) namaElektronikSpinner.getSelectedItem();
+                Spinner electronicNameSpinner = (Spinner) findViewById(R.id.electronicNameSpinner);
+                Electronic electronic = (Electronic) electronicNameSpinner.getSelectedItem();
                 usage.setElectronic(electronic);
 
                 double totalUsageHoursPerDay=0;
@@ -374,17 +380,17 @@ public class UsageActivity extends AppCompatActivity {
         hoursTextView.setText("Jam : ");
         minutesTextView.setText("Menit : ");
 
-        if (Build.VERSION.SDK_INT < 23) {
-            usageModeTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            wattageTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            hoursTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            minutesTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-        }else{
-            usageModeTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            wattageTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            hoursTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            minutesTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-        }
+//        if (Build.VERSION.SDK_INT < 23) {
+//            usageModeTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+//            wattageTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+//            hoursTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+//            minutesTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+//        }else{
+//            usageModeTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
+//            wattageTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
+//            hoursTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
+//            minutesTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
+//        }
 
 
         LinearLayout.LayoutParams wrappingLayParam =  new LinearLayout.LayoutParams(

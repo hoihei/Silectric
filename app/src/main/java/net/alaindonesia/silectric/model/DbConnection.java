@@ -1,4 +1,4 @@
-package net.alaindonesia.simulatortagihanlistrik.model;
+package net.alaindonesia.silectric.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class DbConnection extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ElectricUsageCostSimulation.db";
-    private static final int DATABASE_VERSION = 16;
+    private static final int DATABASE_VERSION = 25;
     private SQLiteDatabase thisDB;
     InputStream initialDataStream = null;
 
@@ -115,7 +115,7 @@ public class DbConnection extends SQLiteOpenHelper {
         ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList  = new ArrayList<>();
 
         String selectQuery = "SELECT 'ElectronicTimeUsageTemplate'.'idElectronicTimeUsageTemplate' , 'ElectronicTimeUsageTemplate'.'idElectronic' , 'ElectronicTimeUsageTemplate'.'idUsageMode' , 'ElectronicTimeUsageTemplate'.'wattage', 'ElectronicTimeUsageTemplate'.'hours' , 'ElectronicTimeUsageTemplate'.'minutes', 'UsageMode'.'usageModeName'  FROM ElectronicTimeUsageTemplate inner join 'UsageMode' on 'UsageMode'.idUsageMode = 'ElectronicTimeUsageTemplate'.idUsageMode  where idElectronic="+idElectronic;
-
+//        String selectQuery = "SELECT * from ElectronicTimeUsageTemplate";
 
         openReadableDatabase();
         Cursor cursor = thisDB.rawQuery(selectQuery, null);
@@ -142,6 +142,8 @@ public class DbConnection extends SQLiteOpenHelper {
     }
 
     public ArrayList<Usage> getUsageList() {
+
+
         ArrayList<Usage> usageList = new ArrayList<>();
         String selectQuery = "select Usage.idUsage, Usage.idElectronic, " +
                 "Usage.numberOfElectronic, electronicName, " +
@@ -157,12 +159,12 @@ public class DbConnection extends SQLiteOpenHelper {
 
                 int idUsage = cursor.getInt(0);
                 int idElectronic = cursor.getInt(1);
-                int jumlahBarang = cursor.getInt(2);
+                int numberOfItems = cursor.getInt(2);
                 String electronicName = cursor.getString(3);
                 int totalWattagePerDay = cursor.getInt(4);
                 double totalUsageHoursPerDay = cursor.getDouble(5);
                 Electronic Electronic = new Electronic(idElectronic, electronicName);
-                Usage usage = new Usage(idUsage, Electronic, jumlahBarang, totalWattagePerDay, totalUsageHoursPerDay);
+                Usage usage = new Usage(idUsage, Electronic, numberOfItems, totalWattagePerDay, totalUsageHoursPerDay);
                 usageList.add(usage);
 
             } while (cursor.moveToNext());
@@ -175,22 +177,22 @@ public class DbConnection extends SQLiteOpenHelper {
     }
 
 
-    public double getTotalWattHarian() {
+    public double getTotalWattDaily() {
         String selectQuery = "select sum(totalWattagePerDay * numberOfElectronic) as " +
-                "total_harian from Usage inner join TimeUsage on " +
+                "total_watt_daily from Usage inner join TimeUsage on " +
                 "Usage.idUsage=TimeUsage.idUsage;";
 
-        double totalWattHarian = 0;
+        double totalWattDaily = 0;
         openReadableDatabase();
         Cursor cursor = thisDB.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
-            totalWattHarian = cursor.getDouble(0);
+            totalWattDaily = cursor.getDouble(0);
         }
 
         cursor.close();
         closeDatabase();
 
-        return totalWattHarian;
+        return totalWattDaily;
     }
 
 
@@ -353,9 +355,13 @@ public class DbConnection extends SQLiteOpenHelper {
 
             JSONArray electronicsJsonArr = initialDataJson.getJSONArray("Electronic");
             for (int i = 0; i < electronicsJsonArr.length(); i++){
-                int idElectronic = electronicsJsonArr.getJSONObject(i).getInt("idElectronic");
+
                 String electronicName = electronicsJsonArr.getJSONObject(i).getString("electronicName");
-                db.execSQL("INSERT into Electronic('idElectronic', 'electronicName') values(" + idElectronic + ",'" + electronicName + "');");
+
+
+                ContentValues values = new ContentValues();
+                values.put("electronicName", electronicName);
+                long idElectronic = db.insert("Electronic", null, values);
 
                 JSONArray timeUsageTemplateJsonArray = electronicsJsonArr.getJSONObject(i).getJSONArray("TimeUsageTemplate");
                 for (int j = 0; j < timeUsageTemplateJsonArray.length(); j++) {
@@ -378,6 +384,9 @@ public class DbConnection extends SQLiteOpenHelper {
         } catch (Exception e) {
             db.execSQL("delete from Electronic");
             db.execSQL("delete from ElectronicTimeUsageTemplate");
+            db.execSQL("delete from Usage");
+            db.execSQL("delete from TimeUsage");
+            db.execSQL("delete from UsageMode");
 
             Log.d("DbConnection", e.toString());
 

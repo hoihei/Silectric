@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PengaturanBiayaListrikActivity"
+    tools:context=".ElectricStaticFeeOptionsActivity"
     android:orientation="vertical"
     tools:showIn="@layout/activity_electric_price">
 
@@ -23,17 +23,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Biaya Per kWh"
+            android:text="@string/energy_charge"
             />
 
         <EditText
             android:layout_marginBottom="10dip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rp0"
+            android:text="@string/electric_fee_example"
             android:inputType="numberDecimal"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/biaya_usage_per_kwh_edit_text" />
+            android:id="@+id/usage_fee_per_kwh_edit_text" />
 
 
 
@@ -48,7 +48,7 @@
             android:layout_marginTop="10dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Biaya Beban(Abodemen)"
+            android:text="@string/basic_charge"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -56,9 +56,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Rp0"
+            android:text="@string/electric_fee_example"
             android:inputType="numberDecimal"
-            android:id="@+id/biaya_beban_edit_text" />
+            android:id="@+id/basic_charge_fee_edit_text" />
 
 
     </LinearLayout>
@@ -73,14 +73,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Biaya Lainnya (mis : admin, pajak)" />
+            android:text="@string/others_fee" />
 
         <EditText
             android:layout_marginBottom="10dip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Rp0"
+            android:text="@string/electric_fee_example"
             android:inputType="numberDecimal"
             android:id="@+id/biaya_lainnya_edit_text" />
 

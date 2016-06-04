@@ -1,4 +1,4 @@
-package net.alaindonesia.simulatortagihanlistrik.model;
+package net.alaindonesia.silectric.model;
 
 
 public class UsageMode {

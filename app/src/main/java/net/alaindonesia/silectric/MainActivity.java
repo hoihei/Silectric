@@ -1,4 +1,4 @@
-package net.alaindonesia.simulatortagihanlistrik;
+package net.alaindonesia.silectric;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,13 +27,14 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.Usage;
-import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
+import net.alaindonesia.silectric.model.Usage;
+import net.alaindonesia.silectric.model.DbConnection;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-
+//TODO:New button in listrik
+//TODO:Inverter percentage penghematan
 //TODO:Search feature in Template Elektronik
 //TODO:Search feauture in Spiner nama elektronik in usage activity
 //TODO:Add template feautre in spinner nama elektronik in usage activity
@@ -73,12 +74,12 @@ import java.util.ArrayList;
 //TODO:Delete Usage from Database
 //TODO:Total watt dan biaya per hari pada main list_usage daripada watt barang, lama dan jumlah barang
 //TODO:delete all timeusage when delete usage
-
+//TODO : Legal issue for searchablespinner https://android-arsenal.com/details/1/3272
 public class MainActivity extends AppCompatActivity {
 
     private final int PEMAKAIAN_ACTIVITY_REQ = 1;
     private final int BIAYA_LISTRIK_ACTIVITY_REQ = 3;
-    private SharedPreferences biayaListrikPreferences;
+    private SharedPreferences preferences;
     private DbConnection dbConnection;
 
     @Override
@@ -88,24 +89,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        biayaListrikPreferences = getSharedPreferences("biayaListrikPreferences", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
 
-        checkBiayaListrikPreferences();
+        checkPreferences();
         initInputDays();
         initAddUsageButton();
         initListUsage();
-        kalkulasiTotal();
+        calculateTotal();
 
     }
 
-    private void kalkulasiTotal() {
-        EditText jumlahHariEditText = (EditText) findViewById(R.id.jumlahHariEditText);
-        int jumlahHari = Integer.parseInt(jumlahHariEditText.getText().toString());
+    private void calculateTotal() {
+        EditText daysEditText = (EditText) findViewById(R.id.daysEditText);
+        int days = Integer.parseInt(daysEditText.getText().toString());
 
-        double totalWattHarian = dbConnection.getTotalWattHarian();
-        double totalKwh = totalWattHarian * jumlahHari / 1000; //divide 1000 for convert Watt to KWatt
+        double totalWattDaily = dbConnection.getTotalWattDaily();
+        double totalKwh = totalWattDaily * days / 1000; //divide 1000 for convert Watt to KWatt
 
         DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getNumberInstance();
         decimalFormat.applyPattern("###,###.#####");
@@ -115,16 +116,16 @@ public class MainActivity extends AppCompatActivity {
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         decimalFormat.setDecimalSeparatorAlwaysShown(false);
 
-        TextView totalUsageListrikTextView = (TextView) findViewById(R.id.totalUsageListrikTextView);
+        TextView totalUsageListrikTextView = (TextView) findViewById(R.id.totalElectricUsageTextView);
         String totalKwHString = decimalFormat.format(totalKwh) + " KwH ";
         totalUsageListrikTextView.setText(totalKwHString);
 
-        double biayaUsagePerKwh = (double) biayaListrikPreferences.getFloat("biaya_usage_per_kwh", 0);
-        double biayaBeban = (double) biayaListrikPreferences.getFloat("biaya_beban", 0);
-        double biayaLainnya = (double) biayaListrikPreferences.getFloat("biaya_lainnya", 0);
+        double feeUsagePerKwh = (double) preferences.getFloat("biaya_usage_per_kwh", 0);
+        double feeBase = (double) preferences.getFloat("biaya_beban", 0);
+        double feeOthers = (double) preferences.getFloat("biaya_lainnya", 0);
 
-        double totalBiayaBulanan = totalKwh * biayaUsagePerKwh;
-        totalBiayaBulanan = totalBiayaBulanan + biayaBeban + biayaLainnya;
+        double totalBiayaBulanan = totalKwh * feeUsagePerKwh;
+        totalBiayaBulanan = totalBiayaBulanan + feeBase + feeOthers;
 
         decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         decimalFormatSymbols = new DecimalFormatSymbols();
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         decimalFormat.setDecimalSeparatorAlwaysShown(false);
 
-        TextView totalBiayaListrikTextView = (TextView) findViewById(R.id.totalBiayaListrikTextView);
+        TextView totalBiayaListrikTextView = (TextView) findViewById(R.id.totalElectricFeeTextView);
         String totalBiayaBulananString = decimalFormat.format(totalBiayaBulanan);
         totalBiayaListrikTextView.setText(totalBiayaBulananString);
 
@@ -142,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initInputDays() {
 
-        final EditText jumlahHariEditText = (EditText) findViewById(R.id.jumlahHariEditText);
-        int jumlahHariInPreferences = biayaListrikPreferences.getInt("jumlah_hari", 30);
+        final EditText jumlahHariEditText = (EditText) findViewById(R.id.daysEditText);
+        int jumlahHariInPreferences = preferences.getInt("jumlah_hari", 30);
         jumlahHariEditText.setText(String.valueOf(jumlahHariInPreferences));
 
 
@@ -170,11 +171,11 @@ public class MainActivity extends AppCompatActivity {
                         int jumlahHari = newVal;
                         jumlahHariEditText.setText(String.valueOf(jumlahHari));
 
-                        SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
+                        SharedPreferences.Editor biayaListrikEditPref = preferences.edit();
                         biayaListrikEditPref.putInt("jumlah_hari", jumlahHari);
                         biayaListrikEditPref.apply();
 
-                        kalkulasiTotal();
+                        calculateTotal();
 
                     }
                 });
@@ -185,11 +186,11 @@ public class MainActivity extends AppCompatActivity {
                         int jumlahHari = np.getValue();
                         jumlahHariEditText.setText(String.valueOf(jumlahHari));
 
-                        SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
+                        SharedPreferences.Editor biayaListrikEditPref = preferences.edit();
                         biayaListrikEditPref.putInt("jumlah_hari", jumlahHari);
                         biayaListrikEditPref.apply();
 
-                        kalkulasiTotal();
+                        calculateTotal();
                     }
                 });
 
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAddUsageButton() {
-        ImageButton tambahUsageButton = (ImageButton) findViewById(R.id.tambahUsageButton);
+        ImageButton tambahUsageButton = (ImageButton) findViewById(R.id.addUsageButton);
         tambahUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,12 +243,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkBiayaListrikPreferences() {
+    private void checkPreferences() {
 
-        boolean hasInitiated = biayaListrikPreferences.getBoolean("has_initiated", false);
+        boolean hasInitiated = preferences.getBoolean("has_initiated", false);
         if (!hasInitiated) {
 
-            SharedPreferences.Editor biayaListrikEditPref = biayaListrikPreferences.edit();
+            SharedPreferences.Editor biayaListrikEditPref = preferences.edit();
             biayaListrikEditPref.putBoolean("has_initiated", true);
             float biayaUsagePerKwh = (float) 1509.03;
             biayaListrikEditPref.putFloat("biaya_usage_per_kwh", biayaUsagePerKwh);
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
             biayaListrikEditPref.putInt("jumlah_hari", 30);
             biayaListrikEditPref.apply();
 
-            Intent intent = new Intent(this, PengaturanBiayaListrikActivity.class);
+            Intent intent = new Intent(this, ElectricStaticFeeOptionsActivity.class);
             startActivityForResult(intent, BIAYA_LISTRIK_ACTIVITY_REQ);
         }
     }
@@ -266,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         initListUsage();
-        kalkulasiTotal();
+        calculateTotal();
     }
 
 
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_harga_listrik) {
 
-            Intent intent = new Intent(this, PengaturanBiayaListrikActivity.class);
+            Intent intent = new Intent(this, ElectricStaticFeeOptionsActivity.class);
             startActivityForResult(intent, BIAYA_LISTRIK_ACTIVITY_REQ);
 
             return true;

@@ -34,14 +34,20 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Elektronik" />
+                android:text="@string/electronic" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:id="@+id/electronicNameSpinner"-->
+                <!--/>-->
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/namaElektronikSpinner"
-                />
+                android:id="@+id/electronicNameSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -60,7 +66,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jumlah : "
+            android:text="@string/number_of_items"
+            />
+        <TextView
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/double_score"
             />
 
         <EditText
@@ -71,7 +83,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="4"
-            android:text="1"
+            android:text="@string/default_number_electronic"
             android:focusable="false"
             android:id="@+id/numberOfElectronicTextView"
             />
@@ -100,7 +112,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Penggunaan/hari" />
+                android:text="@string/usage_day" />
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"

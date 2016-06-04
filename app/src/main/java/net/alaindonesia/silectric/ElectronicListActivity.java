@@ -1,10 +1,9 @@
-package net.alaindonesia.simulatortagihanlistrik;
+package net.alaindonesia.silectric;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,8 +17,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
-import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
+import net.alaindonesia.silectric.model.DbConnection;
+import net.alaindonesia.silectric.model.Electronic;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class ElectronicListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_electronic);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.listElektronikToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.listElectronicToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -129,7 +128,7 @@ class ElektronikListAdapter extends BaseAdapter {
 
         View view=convertView;
         if(convertView==null)
-            view = inflater.inflate(R.layout.list_elektronic, null);
+            view = inflater.inflate(R.layout.list_electronic, null);
 
         TextView namaInListElektronik = (TextView)view.findViewById(R.id.electronicNameInListElektronik);
 

@@ -1,4 +1,4 @@
-package net.alaindonesia.simulatortagihanlistrik;
+package net.alaindonesia.silectric;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

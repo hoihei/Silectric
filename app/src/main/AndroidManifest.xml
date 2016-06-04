@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.alaindonesia.simulatortagihanlistrik">
+    package="net.alaindonesia.silectric">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="net.alaindonesia.silectric.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,40 +19,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PengaturanBiayaListrikActivity"
-            android:label="@string/title_activity_pengaturan_biaya_listrik"
-            android:parentActivityName=".MainActivity"
+            android:name="net.alaindonesia.silectric.ElectricStaticFeeOptionsActivity"
+            android:label=""
+            android:parentActivityName="net.alaindonesia.silectric.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+                android:value="net.alaindonesia.silectric.MainActivity" />
         </activity>
         <activity
-            android:name=".UsageActivity"
+            android:name="net.alaindonesia.silectric.UsageActivity"
             android:label="@string/title_activity_usage"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="net.alaindonesia.silectric.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+                android:value="net.alaindonesia.silectric.MainActivity" />
         </activity>
         <activity
-            android:name=".ElectronicListActivity"
+            android:name="net.alaindonesia.silectric.ElectronicListActivity"
             android:label=""
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="net.alaindonesia.silectric.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.alaindonesia.simulatortagihanlistrik.MainActivity" />
+                android:value="net.alaindonesia.silectric.MainActivity" />
         </activity>
         <activity
-            android:name=".ElectronicActivity"
+            android:name="net.alaindonesia.silectric.ElectronicActivity"
             android:label=""
-            android:parentActivityName=".ElectronicListActivity"
+            android:parentActivityName="net.alaindonesia.silectric.ElectronicListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ElectronicListActivity" />
+                android:value="net.alaindonesia.silectric.ElectronicListActivity" />
         </activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->

@@ -1,10 +1,9 @@
-package net.alaindonesia.simulatortagihanlistrik;
+package net.alaindonesia.silectric;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,11 +24,10 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import net.alaindonesia.simulatortagihanlistrik.model.DbConnection;
-import net.alaindonesia.simulatortagihanlistrik.model.Electronic;
-import net.alaindonesia.simulatortagihanlistrik.model.ElectronicTimeUsageTemplate;
-import net.alaindonesia.simulatortagihanlistrik.model.Usage;
-import net.alaindonesia.simulatortagihanlistrik.model.UsageMode;
+import net.alaindonesia.silectric.model.DbConnection;
+import net.alaindonesia.silectric.model.Electronic;
+import net.alaindonesia.silectric.model.ElectronicTimeUsageTemplate;
+import net.alaindonesia.silectric.model.UsageMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -282,22 +280,16 @@ public class ElectronicActivity extends AppCompatActivity {
         TextView hoursTextView  = new TextView(v.getContext());
         TextView minutesTextView = new TextView(v.getContext());
 
-        usageModeTextView.setText("Mode : ");
-        wattageTextView.setText("Watt : ");
-        hoursTextView.setText("Jam : ");
-        minutesTextView.setText("Menit : ");
+        usageModeTextView.setText(getString(R.string.mode) +getString(R.string.double_score));
+        wattageTextView.setText(getString(R.string.watt)  +getString(R.string.double_score));
+        hoursTextView.setText(getString(R.string.hours)  +getString(R.string.double_score));
+        minutesTextView.setText(getString(R.string.minutes)  +getString(R.string.double_score));
 
-        if (Build.VERSION.SDK_INT < 23) {
-            usageModeTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            wattageTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            hoursTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-            minutesTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
-        }else{
-            usageModeTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            wattageTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            hoursTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-            minutesTextView.setTextAppearance(android.R.style.TextAppearance_Medium);
-        }
+
+        usageModeTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        wattageTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        hoursTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        minutesTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 
 
         LinearLayout.LayoutParams wrappingLayParam =  new LinearLayout.LayoutParams(

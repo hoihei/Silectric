@@ -1,42 +1,42 @@
-package net.alaindonesia.simulatortagihanlistrik.model;
+package net.alaindonesia.silectric.model;
 
 
-public class ElectronicTimeUsageTemplate {
-    private int idElectronicTimeUsageTemplate;
+public class TimeUsage {
+    private int idTimeUsage;
     private int hours;
     private int minutes;
-    private int idElectronic;
+    private int idUsage;
     private int wattage;
     private int idUsageMode;
     private UsageMode usageMode;
-    private boolean isNewElectronicTimeUsageTemplate;
-    private boolean isNewElectronic;
+    private boolean isNewTimeUsage;
+    private boolean isNewUsage;
 
 
-    public ElectronicTimeUsageTemplate(int idElectronicTimeUsageTemplate, int idElectronic, int idUsageMode, int wattage, int hours, int minutes, UsageMode usageMode) {
-        this.idElectronicTimeUsageTemplate = idElectronicTimeUsageTemplate;
+    public TimeUsage(int idTimeUsage, int idUsage, int idUsageMode, int wattage, int hours, int minutes, UsageMode usageMode) {
+        this.idTimeUsage = idTimeUsage;
         this.hours = hours;
         this.minutes = minutes;
-        this.idElectronic = idElectronic;
+        this.idUsage = idUsage;
         this.wattage = wattage;
         this.idUsageMode = idUsageMode;
         this.usageMode = usageMode;
-        this.isNewElectronicTimeUsageTemplate = false;
+        this.isNewTimeUsage = false;
     }
 
 
-    public ElectronicTimeUsageTemplate(boolean isNewElectronic, int idUsageMode, int wattage, int hours, int minutes, UsageMode usageMode) {
+    public TimeUsage(boolean isNewUsage, int idUsageMode, int wattage, int hours, int minutes, UsageMode usageMode) {
         this.hours = hours;
         this.minutes = minutes;
         this.wattage = wattage;
         this.idUsageMode = idUsageMode;
-        this.isNewElectronic = isNewElectronic;
-        this.isNewElectronicTimeUsageTemplate = true;
+        this.isNewUsage = isNewUsage;
+        this.isNewTimeUsage = true;
         this.usageMode = usageMode;
     }
 
-    public int getIdElectronicTimeUsageTemplate() {
-        return idElectronicTimeUsageTemplate;
+    public int getIdTimeUsage() {
+        return idTimeUsage;
     }
 
 
@@ -56,12 +56,12 @@ public class ElectronicTimeUsageTemplate {
         this.minutes = minutes;
     }
 
-    public int getIdElectronic() {
-        return idElectronic;
+    public int getIdUsage() {
+        return idUsage;
     }
 
-    public void setIdElectronic(int idElectronic) {
-        this.idElectronic = idElectronic;
+    public void setIdUsage(int idUsage) {
+        this.idUsage = idUsage;
     }
 
     public int getWattage() {
@@ -80,20 +80,20 @@ public class ElectronicTimeUsageTemplate {
         this.idUsageMode = idUsageMode;
     }
 
-    public boolean isNewElectronicTimeUsageTemplate() {
-        return isNewElectronicTimeUsageTemplate;
+    public boolean isNewTimeUsage() {
+        return isNewTimeUsage;
     }
 
     public void setIsNewTimeUsage(boolean isNewTimeUsage) {
-        this.isNewElectronicTimeUsageTemplate = isNewTimeUsage;
+        this.isNewTimeUsage = isNewTimeUsage;
     }
 
-    public boolean isNewElectronic() {
-        return isNewElectronic;
+    public boolean isNewUsage() {
+        return isNewUsage;
     }
 
     public void setIsNewUsage(boolean isNewUsage) {
-        this.isNewElectronic = isNewUsage;
+        this.isNewUsage = isNewUsage;
     }
 
     public UsageMode getUsageMode() {

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Nama Elektronik"
+            android:text="@string/electronic_name"
             />
 
         <EditText
@@ -59,7 +59,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Templete penggunaan/hari" />
+                android:text="@string/template_daily_usage" />
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
