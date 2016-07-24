@@ -59,7 +59,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_elektronic" />
+    <include layout="@layout/content_electronic" />
 
 
 

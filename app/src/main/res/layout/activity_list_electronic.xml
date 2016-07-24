@@ -56,7 +56,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_list_elektronik" />
+    <include layout="@layout/content_list_electronic" />
 
 
 

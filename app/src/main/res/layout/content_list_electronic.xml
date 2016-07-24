@@ -16,7 +16,7 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/elektronikListView"
+        android:id="@+id/electronicListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"

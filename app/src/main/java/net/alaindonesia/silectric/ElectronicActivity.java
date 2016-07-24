@@ -68,12 +68,12 @@ public class ElectronicActivity extends AppCompatActivity {
     }
 
     private void initForm(){
-        TextView namaElektronikInElektronikForm = (TextView) findViewById(R.id.electronicNameInElectronicContent);
+        TextView electronicNameInElectronicContentForm = (TextView) findViewById(R.id.electronicNameInElectronicContent);
         ImageButton addTimeUsageButton = (ImageButton) findViewById(R.id.addTimeUsageInElectronicContentButton);
         timeUsageTemplateArrayList = dbConnection.getElectronicTimeUsageTemplateByIdElectronic(electronic.getIdElectronic());
 
         if(this.electronic != null){
-            namaElektronikInElektronikForm.setText(String.valueOf(this.electronic.getElectronicName()));
+            electronicNameInElectronicContentForm.setText(String.valueOf(this.electronic.getElectronicName()));
         }
 
         addTimeUsageButton.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +95,8 @@ public class ElectronicActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    int idElektronik = electronic.getIdElectronic();
-                    dbConnection.deleteElectronic(idElektronik);
+                    int idElectronic = electronic.getIdElectronic();
+                    dbConnection.deleteElectronic(idElectronic);
                     finish();
                 }
             });
@@ -107,14 +107,14 @@ public class ElectronicActivity extends AppCompatActivity {
 
     private void initSaveElectronicButton(){
 
-        ImageButton simpanFloatingButton = (ImageButton) findViewById(R.id.saveElectronicButton);
-        simpanFloatingButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton saveFloatingButton = (ImageButton) findViewById(R.id.saveElectronicButton);
+        saveFloatingButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                TextView namaElektronikInElektronikForm = (TextView) findViewById(R.id.electronicNameInElectronicContent);
-                String electronicName = namaElektronikInElektronikForm.getText().toString();
+                TextView electronicNameInElectronicForm = (TextView) findViewById(R.id.electronicNameInElectronicContent);
+                String electronicName = electronicNameInElectronicForm.getText().toString();
                 electronic.setElectronicName(electronicName);
 
                 if (isNewElectronic) {
@@ -164,9 +164,9 @@ public class ElectronicActivity extends AppCompatActivity {
 
         String  okButtonString;
         if (isNewElectronicTimeUsageTemplate){
-            okButtonString = "Tambah";
+            okButtonString = "Add";
         }else{
-            okButtonString = "Simpan";
+            okButtonString = "Save";
             wattageNumberPicker.setValue(timeUsageTemplate.getWattage());
             hoursInPopupTimeUsage.setValue(timeUsageTemplate.getHours());
             minutesInPopupTimeUsage.setValue(timeUsageTemplate.getMinutes());
@@ -213,8 +213,8 @@ public class ElectronicActivity extends AppCompatActivity {
             }
         });
 
-        alert.setNegativeButton("Batal", null);
-        alert.setNeutralButton("Hapus", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Cancel", null);
+        alert.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(timeUsageTemplate !=null){
@@ -361,9 +361,9 @@ class ElectronicTimeUsageTemplateListAdapter extends BaseAdapter {
     private ArrayList<ElectronicTimeUsageTemplate> timeUsageList;
     private static LayoutInflater inflater=null;
 
-    public ElectronicTimeUsageTemplateListAdapter(Activity activity, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTempleteList) {
+    public ElectronicTimeUsageTemplateListAdapter(Activity activity, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplateList) {
         this.activity = activity;
-        this.timeUsageList = electronicTimeUsageTempleteList;
+        this.timeUsageList = electronicTimeUsageTemplateList;
         inflater = (LayoutInflater) this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -404,7 +404,7 @@ class ElectronicTimeUsageTemplateListAdapter extends BaseAdapter {
 
 
         }catch (Exception e){
-            Log.e("ListElektronik", e.getMessage());
+            Log.e("ListElectronic", e.getMessage());
         }
 
         return view;

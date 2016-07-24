@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ElectricStaticFeeOptionsActivity">
+    tools:context=".OptionsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:text="@string/option_electric_static_fees"
+                android:text="@string/preferences"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
@@ -54,7 +54,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_electric_static_fee_options" />
+    <include layout="@layout/content_preferences" />
 
 
 

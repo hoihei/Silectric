@@ -25,8 +25,6 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
-
 import net.alaindonesia.silectric.model.DbConnection;
 import net.alaindonesia.silectric.model.Electronic;
 import net.alaindonesia.silectric.model.ElectronicTimeUsageTemplate;
@@ -78,14 +76,14 @@ public class UsageActivity extends AppCompatActivity {
         ArrayList<Electronic> electronicList = dbConnection.getElectronicList();
 
         timeUsageArrayList = dbConnection.getTimeUsagesByIdUsage(usage.getIdUsage());
-        initElektronikSpinner(electronicNameSpinner, electronicList);
+        initElectronicSpinner(electronicNameSpinner, electronicList);
 
         initNumberOfElectronicNumberPicker(numberOfElectronicTextView);
 
         initListTimeUsage();
 
-        int jumlahBarang = usage.getNumberOfElectronic();
-        numberOfElectronicTextView.setText(String.valueOf(jumlahBarang));
+        int numberOfElectronic = usage.getNumberOfElectronic();
+        numberOfElectronicTextView.setText(String.valueOf(numberOfElectronic));
 
         addTimeUsageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +94,11 @@ public class UsageActivity extends AppCompatActivity {
 
     }
 
-    private void initNumberOfElectronicNumberPicker(final EditText jumlahBarangTextView) {
-        jumlahBarangTextView.setOnClickListener(new View.OnClickListener() {
+    private void initNumberOfElectronicNumberPicker(final EditText numberOfElectronicTextView) {
+        numberOfElectronicTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
-                alert.setTitle(R.string.number_of_items + R.string.double_score);
                 final NumberPicker np = new NumberPicker(v.getContext());
 
                 np.setMinValue(1);
@@ -112,7 +109,7 @@ public class UsageActivity extends AppCompatActivity {
                 alert.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         np.clearFocus();
-                        jumlahBarangTextView.setText(String.valueOf(np.getValue()));
+                        numberOfElectronicTextView.setText(String.valueOf(np.getValue()));
                         usage.setNumberOfElectronic(np.getValue());
                     }
                 });
@@ -129,13 +126,13 @@ public class UsageActivity extends AppCompatActivity {
         });
     }
 
-    private void initElektronikSpinner(SearchableSpinner electronicNameSpinner, List<Electronic> electronicList){
+    private void initElectronicSpinner(SearchableSpinner electronicNameSpinner, List<Electronic> electronicList){
 
         ArrayAdapter<Electronic> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, electronicList);
         electronicNameSpinner.setAdapter(dataAdapter);
 
 
-        electronicNameSpinner.setTitle("Pilih Jenis Elektronik");
+        electronicNameSpinner.setTitle("Select Electronic Type");
         electronicNameSpinner.setPositiveButton("Ok");
 
         electronicNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -258,9 +255,9 @@ public class UsageActivity extends AppCompatActivity {
 
         String  okButtonString;
         if (isNewTimeUsage){
-            okButtonString = "Tambah";
+            okButtonString = "Add";
         }else{
-            okButtonString = "Simpan";
+            okButtonString = "Save";
             wattageNumberPicker.setValue(timeUsage.getWattage());
             hoursInPopupTimeUsage.setValue(timeUsage.getHours());
             minutesInPopupTimeUsage.setValue(timeUsage.getMinutes());
@@ -307,8 +304,8 @@ public class UsageActivity extends AppCompatActivity {
             }
         });
 
-        alert.setNegativeButton("Batal", null);
-        alert.setNeutralButton("Hapus", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Cancel", null);
+        alert.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(timeUsage !=null){
@@ -377,8 +374,8 @@ public class UsageActivity extends AppCompatActivity {
 
         usageModeTextView.setText("Mode : ");
         wattageTextView.setText("Watt : ");
-        hoursTextView.setText("Jam : ");
-        minutesTextView.setText("Menit : ");
+        hoursTextView.setText("Hours : ");
+        minutesTextView.setText("Minutes : ");
 
 //        if (Build.VERSION.SDK_INT < 23) {
 //            usageModeTextView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
@@ -506,7 +503,7 @@ class TimeUsageListAdapter extends BaseAdapter {
 
 
         }catch (Exception e){
-            Log.e("ListElektronik", e.getMessage());
+            Log.e("ListElectronic", e.getMessage());
         }
 
         return view;
@@ -515,5 +512,3 @@ class TimeUsageListAdapter extends BaseAdapter {
 
 
 }
-
-//DONE: Spinner elektronik wih sub item watt

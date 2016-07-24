@@ -14,7 +14,7 @@
         />
 
     <TextView
-        android:id="@+id/namaElektronikOnListRow"
+        android:id="@+id/electronicNameOnListRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/namaElektronikOnListRow"
+        android:layout_below="@+id/electronicNameOnListRow"
         >
 
         <TextView
@@ -56,7 +56,7 @@
             />
 
         <TextView
-            android:id="@+id/jumlahBarangOnListRow"
+            android:id="@+id/numberOfElectronicOnListRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"

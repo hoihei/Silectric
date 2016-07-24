@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="net.alaindonesia.silectric.ElectricStaticFeeOptionsActivity"
+            android:name=".OptionsActivity"
             android:label=""
             android:parentActivityName="net.alaindonesia.silectric.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name="net.alaindonesia.silectric.UsageActivity"
-            android:label="@string/title_activity_usage"
+            android:label=""
             android:parentActivityName="net.alaindonesia.silectric.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
