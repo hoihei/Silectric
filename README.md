@@ -1,4 +1,4 @@
-Silentric
+Silectric
 =========
 An Android application to calculate electric consumption (wattage) and bill
 
@@ -15,7 +15,7 @@ An Android application to calculate electric consumption (wattage) and bill
   * Indonesia locale support
 
 ### Download
-[https://github.com/hoihei/Silenctric/raw/master/release/silentric1.0.apk](https://github.com/hoihei/Silentric/raw/master/release/silentric1.0.apk)
+[https://github.com/hoihei/Silectric/raw/master/release/silentric1.0.apk](https://github.com/hoihei/Silectric/raw/master/release/silentric1.0.apk)
 
 ### Screen shoot
 ![](http://i.imgur.com/AiVnRXr.png)
