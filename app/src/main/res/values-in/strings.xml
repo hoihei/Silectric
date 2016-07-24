@@ -1,0 +1,24 @@
+<resources>
+    <string name="preferences">Pilihan</string>
+    <string name="title_activity_usage">Usage</string>
+    <string name="total">Total</string>
+    <string name="electric_fee_example">Rp 0</string>
+    <string name="days">Hari</string>
+    <string name="activity_per_day">Aktivitas per Hari</string>
+    <string name="add_activity" >Tambah aktivitas</string>
+    <string name="electronic">Elektronik</string>
+    <string name="number">Jumlah</string>
+    <string name="usage_day">Penggunaan/hari</string>
+    <string name="template_daily_usage">Templete penggunaan/hari</string>
+    <string name="electronic_name">Nama Elektronik</string>
+    <string name="basic_charge">Biaya Beban/Abodemen</string>
+    <string name="energy_charge">Biaya Per kWh</string>
+    <string name="others_fee">Biaya Lainnya (mis : admin, pajak)</string>
+    <string name="electronic_template">Templete Elektronik</string>
+    <string name="mode">Mode</string>
+    <string name="hours">Jam</string>
+    <string name="minutes">Menit</string>
+    <string name="number_of_items">Jumlah Barang</string>
+    <string name="save">Simpan</string>
+    <string name="currency_options">Mata uang</string>
+</resources>
