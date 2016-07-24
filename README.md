@@ -1,8 +1,21 @@
-# Silentric
+Silentric
+=========
 An Android application to calculate electric consumption (wattage) and bill
 
-### Download
 
+### Feature :
+* 1.0
+  * Multiple electricity usage activity
+  * Calculated bill prediction
+  * Calculated wattage prediction
+  * Electricity usage template
+  * Multiple days
+  * Two usage mode : normal & standby
+  * Currencies selectable
+  * Indonesia locale support
+
+### Download
+[https://github.com/hoihei/Silectric/raw/master/release/silentric1.0.apk](https://github.com/hoihei/Silectric/raw/master/release/silentric1.0.apk)
 
 ### Screen shoot
 ![](http://i.imgur.com/AiVnRXr.png)
