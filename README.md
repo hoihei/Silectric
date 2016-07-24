@@ -25,3 +25,4 @@ An Android application to calculate electric consumption (wattage) and bill
 
 ### Video (in youtube)
 [![Click in youtube](https://img.youtube.com/vi/q8GZnqMg5ck/0.jpg)](https://www.youtube.com/watch?v=q8GZnqMg5ck)
+[https://www.youtube.com/watch?v=q8GZnqMg5ck](https://www.youtube.com/watch?v=q8GZnqMg5ck)
