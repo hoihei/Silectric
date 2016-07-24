@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editorSharedPref = silentricPreferences.edit();
             editorSharedPref.putBoolean("has_initiated", true);
-            editorSharedPref.putFloat("usage_fee_per_kwh", 1509);
+            editorSharedPref.putFloat("usage_fee_per_kwh",  0.20f);
             editorSharedPref.putFloat("basic_fee", 0);
             editorSharedPref.putFloat("others_fee", 0);
             editorSharedPref.putInt("number_of_days", 30);
