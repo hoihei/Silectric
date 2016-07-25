@@ -1,5 +1,5 @@
 ### apk download
-[https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk](https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk)
+[]()
 
 Silectric
 =========
@@ -7,9 +7,8 @@ An Android application to calculate electric bill based on electric consumption 
 
 ### Instalation
 We do not have google play publisher account yet.
-So you need to download apk manual from [https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk](https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk) and install with "Unknown Source" setting in your Android.
-
-This app does not require any Android permission.
+So you need to download apk manual from apk download section and install with "Unknown Source" setting in your Android.
+This app does not require any Android device access/permission.
 
 
 ### Feature :
@@ -22,9 +21,6 @@ This app does not require any Android permission.
   * Two usage mode : normal & standby
   * Currencies selectable
   * Indonesia locale support
-
-### Download
-[https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk](https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk)
 
 ### Screen shoot
 ![](http://i.imgur.com/nnb7HME.jpg)
