@@ -3,7 +3,7 @@
 
 Silectric
 =========
-An Android application to calculate electric consumption (wattage) and bill
+An Android application to calculate electric bill based on electric consumption in home.
 
 ### Instalation
 We do not have google play publisher account yet.
