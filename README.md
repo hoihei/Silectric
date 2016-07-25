@@ -5,6 +5,10 @@ Silectric
 =========
 An Android application to calculate electric consumption (wattage) and bill
 
+### Instalation
+We do not have google play publisher account yet.
+So you need to download apk manual from [https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk](https://github.com/hoihei/Silectric/releases/download/1.0/silentric1.0.apk) and install with "Unknown Source" setting in your Android.
+
 
 ### Feature :
 * 1.0
