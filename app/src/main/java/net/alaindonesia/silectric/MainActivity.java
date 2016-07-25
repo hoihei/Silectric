@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final int USAGE_ACTIVITY_REQ = 1;
     private final int ELECTRIC_FEE_ACTIVITY_REQ = 3;
-    private SharedPreferences silentricPreferences;
+    private SharedPreferences silectricPreferences;
     private DbConnection dbConnection;
 
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        silentricPreferences = getSharedPreferences("silentricPreferences", Context.MODE_PRIVATE);
+        silectricPreferences = getSharedPreferences("silectricPreferences", Context.MODE_PRIVATE);
 
         dbConnection = new DbConnection(this, getResources().openRawResource(R.raw.initial_data));
 
@@ -75,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
         String totalKwHString = kwhFormat.format(totalKwh) + " KwH ";
         totalElectricUsageTextView.setText(totalKwHString);
 
-        double feeUsagePerKwh = (double) silentricPreferences.getFloat("usage_fee_per_kwh", 0);
-        double feeBase = (double) silentricPreferences.getFloat("basic_fee", 0);
-        double feeOthers = (double) silentricPreferences.getFloat("others_fee", 0);
+        double feeUsagePerKwh = (double) silectricPreferences.getFloat("usage_fee_per_kwh", 0.2f);
+        double feeBase = (double) silectricPreferences.getFloat("basic_fee", 0);
+        double feeOthers = (double) silectricPreferences.getFloat("others_fee", 0);
 
         double totalMonthlyUsage = totalKwh * feeUsagePerKwh;
         totalMonthlyUsage = totalMonthlyUsage + feeBase + feeOthers;
 
-        String currencyCode = silentricPreferences.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
+        String currencyCode = silectricPreferences.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
         Currency currency =  Currency.getInstance(currencyCode);
 
         DecimalFormat monthlyFeeFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(getResources().getConfiguration().locale);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void initInputDays() {
 
         final EditText daysEditText = (EditText) findViewById(R.id.daysEditText);
-        int daysInPreferences = silentricPreferences.getInt("number_of_days", 30);
+        int daysInPreferences = silectricPreferences.getInt("number_of_days", 30);
         daysEditText.setText(String.valueOf(daysInPreferences));
 
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         int days = newVal;
                         daysEditText.setText(String.valueOf(days));
 
-                        SharedPreferences.Editor editPref = silentricPreferences.edit();
+                        SharedPreferences.Editor editPref = silectricPreferences.edit();
                         editPref.putInt("number_of_days", days);
                         editPref.apply();
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         int days = np.getValue();
                         daysEditText.setText(String.valueOf(days));
 
-                        SharedPreferences.Editor editPref = silentricPreferences.edit();
+                        SharedPreferences.Editor editPref = silectricPreferences.edit();
                         editPref.putInt("number_of_days", days);
                         editPref.apply();
 
@@ -202,10 +202,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPreferences() {
 
-        boolean hasInitiated = silentricPreferences.getBoolean("has_initiated", false);
+        boolean hasInitiated = silectricPreferences.getBoolean("has_initiated", false);
         if (!hasInitiated) {
 
-            SharedPreferences.Editor editorSharedPref = silentricPreferences.edit();
+            SharedPreferences.Editor editorSharedPref = silectricPreferences.edit();
             editorSharedPref.putBoolean("has_initiated", true);
             editorSharedPref.putFloat("usage_fee_per_kwh",  0.20f);
             editorSharedPref.putFloat("basic_fee", 0);

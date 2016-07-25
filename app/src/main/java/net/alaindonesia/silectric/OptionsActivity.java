@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    private SharedPreferences silentricPrefereces;
+    private SharedPreferences sharedPreferences;
 
     double usageFeePerKwh;
     double basicChargeFee;
@@ -41,12 +41,12 @@ public class OptionsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        silentricPrefereces = getSharedPreferences("silentricPrefereces", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("silectricPreferences", Context.MODE_PRIVATE);
 
-        usageFeePerKwh = (double) silentricPrefereces.getFloat("usage_fee_per_kwh", 0);
-        basicChargeFee = (double)  silentricPrefereces.getFloat("basic_fee", 0);
-        otherFee = (double)  silentricPrefereces.getFloat("others_fee", 0);
-        String currencyCode = silentricPrefereces.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
+        usageFeePerKwh = (double) sharedPreferences.getFloat("usage_fee_per_kwh", 0);
+        basicChargeFee = (double)  sharedPreferences.getFloat("basic_fee", 0);
+        otherFee = (double)  sharedPreferences.getFloat("others_fee", 0);
+        String currencyCode = sharedPreferences.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
         Currency currency = Currency.getInstance(currencyCode);
         this.selectedSilentricCurrency = new SilentricCurrency(currency);
 
@@ -62,7 +62,7 @@ public class OptionsActivity extends AppCompatActivity {
         saveElectricFeeFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editorSharedPref = silentricPrefereces.edit();
+                SharedPreferences.Editor editorSharedPref = sharedPreferences.edit();
                 EditText usageFeePerKwhEditText  = (EditText) findViewById(R.id.usage_fee_per_kwh_edit_text);;
                 EditText basicChargeFeeEditText  = (EditText) findViewById(R.id.basic_charge_fee_edit_text);
                 EditText othersFeeEditText = (EditText) findViewById(R.id.other_fee_edit_text);
