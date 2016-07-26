@@ -8,6 +8,11 @@ Silectric
 =========
 An Android application to calculate electric bill based on electric consumption in home.
 
+
+#### License
+Apache License 2.0
+
+
 ### Instalation
 We do not have google play publisher account yet.
 So you need to download apk manual from apk download section and install with "Unknown Source" setting in your Android.
@@ -24,6 +29,7 @@ This app does not require any Android device access/permission.
   * Two usage mode : normal & standby
   * Currencies selectable
   * Indonesia locale support
+
 
 ### Screen shoot
 ![](http://i.imgur.com/nnb7HME.jpg)
