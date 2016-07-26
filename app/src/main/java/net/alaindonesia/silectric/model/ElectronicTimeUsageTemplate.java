@@ -35,11 +35,6 @@ public class ElectronicTimeUsageTemplate {
         this.usageMode = usageMode;
     }
 
-    public int getIdElectronicTimeUsageTemplate() {
-        return idElectronicTimeUsageTemplate;
-    }
-
-
     public int getHours() {
         return hours;
     }

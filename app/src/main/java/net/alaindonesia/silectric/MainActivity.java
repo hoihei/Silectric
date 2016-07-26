@@ -27,8 +27,8 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import net.alaindonesia.silectric.model.Usage;
 import net.alaindonesia.silectric.model.DbConnection;
+import net.alaindonesia.silectric.model.Usage;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         double totalMonthlyUsage = totalKwh * feeUsagePerKwh;
         totalMonthlyUsage = totalMonthlyUsage + feeBase + feeOthers;
 
-        String currencyCode = silectricPreferences.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
-        Currency currency =  Currency.getInstance(currencyCode);
+        String currencyCode = silectricPreferences.getString("currency_code", Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode());
+        Currency currency = Currency.getInstance(currencyCode);
 
         DecimalFormat monthlyFeeFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(getResources().getConfiguration().locale);
         DecimalFormatSymbols monthlyFeeFormatSymbols = new DecimalFormatSymbols();
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText daysEditText = (EditText) findViewById(R.id.daysEditText);
         int daysInPreferences = silectricPreferences.getInt("number_of_days", 30);
         daysEditText.setText(String.valueOf(daysInPreferences));
-
 
 
         daysEditText.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +158,8 @@ public class MainActivity extends AppCompatActivity {
                         Gravity.CENTER));
 
                 alert.setView(parent);
-                alert.show().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);;
+                alert.show().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                ;
             }
         });
 
@@ -207,18 +207,17 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editorSharedPref = silectricPreferences.edit();
             editorSharedPref.putBoolean("has_initiated", true);
-            editorSharedPref.putFloat("usage_fee_per_kwh",  0.20f);
+            editorSharedPref.putFloat("usage_fee_per_kwh", 0.20f);
             editorSharedPref.putFloat("basic_fee", 0);
             editorSharedPref.putFloat("others_fee", 0);
             editorSharedPref.putInt("number_of_days", 30);
-            editorSharedPref.putString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
+            editorSharedPref.putString("currency_code", Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode());
             editorSharedPref.apply();
 
             Intent intent = new Intent(this, OptionsActivity.class);
             startActivityForResult(intent, ELECTRIC_FEE_ACTIVITY_REQ);
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -249,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ELECTRIC_FEE_ACTIVITY_REQ);
 
             return true;
-        }else if (id == R.id.action_electronic_type) {
+        } else if (id == R.id.action_electronic_type) {
 
             Intent intent = new Intent(this, ElectronicListActivity.class);
             startActivity(intent);
@@ -267,7 +266,7 @@ class UsageListAdapter extends BaseAdapter {
 
     private Activity activity;
     private ArrayList<Usage> usageList;
-    private static LayoutInflater inflater=null;
+    private static LayoutInflater inflater = null;
 
     public UsageListAdapter(Activity activity, ArrayList<Usage> usageList) {
         this.activity = activity;
@@ -294,14 +293,14 @@ class UsageListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view=convertView;
-        if(convertView==null)
+        View view = convertView;
+        if (convertView == null)
             view = inflater.inflate(R.layout.list_usage, null);
 
 
-        TextView nameElectronicOnListRow = (TextView)view.findViewById(R.id.electronicNameOnListRow);
-        TextView totalWattagePerDayOnListRow = (TextView)view.findViewById(R.id.totalWattagePerDayOnListRow);
-        TextView totalUsageHoursPerDayOnListRow = (TextView)view.findViewById(R.id.totalUsageHoursPerDayOnListRow);
+        TextView nameElectronicOnListRow = (TextView) view.findViewById(R.id.electronicNameOnListRow);
+        TextView totalWattagePerDayOnListRow = (TextView) view.findViewById(R.id.totalWattagePerDayOnListRow);
+        TextView totalUsageHoursPerDayOnListRow = (TextView) view.findViewById(R.id.totalUsageHoursPerDayOnListRow);
         TextView numberOfElectronicOnListRow = (TextView) view.findViewById(R.id.numberOfElectronicOnListRow);
 
         Usage usage = usageList.get(position);
@@ -309,9 +308,9 @@ class UsageListAdapter extends BaseAdapter {
         try {
             nameElectronicOnListRow.setText(usage.getElectronic().getElectronicName());
             totalWattagePerDayOnListRow.setText(String.valueOf(usage.getTotalWattagePerDay()) + " watt");
-            totalUsageHoursPerDayOnListRow.setText(String.valueOf(usage.getTotalUsageHoursPerDay())+" hours");
+            totalUsageHoursPerDayOnListRow.setText(String.valueOf(usage.getTotalUsageHoursPerDay()) + " hours");
             numberOfElectronicOnListRow.setText(String.valueOf(usage.getNumberOfElectronic()) + " electronics");
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("MAinActivity", e.getMessage());
         }
 

@@ -23,7 +23,7 @@ public class DbConnection extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ElectricUsageCostSimulation.db";
     private static final int DATABASE_VERSION = 25;
     private SQLiteDatabase thisDB;
-    InputStream initialDataStream = null;
+    private InputStream initialDataStream = null;
 
     public DbConnection(Context context, InputStream initialDataStream) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -196,7 +196,7 @@ public class DbConnection extends SQLiteOpenHelper {
     }
 
 
-    public long addUsage(Usage usage, ArrayList timeUsageList) {
+    public void addUsage(Usage usage, ArrayList timeUsageList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -210,10 +210,6 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
 
         updateTimeUsages(lastInsertedId, timeUsageList);
-
-
-
-        return lastInsertedId;
 
     }
 
@@ -238,7 +234,7 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
     }
 
-    public boolean editUsage(Usage usage, ArrayList timeUsageList) {
+    public void editUsage(Usage usage, ArrayList timeUsageList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -255,13 +251,11 @@ public class DbConnection extends SQLiteOpenHelper {
         updateTimeUsages(usage.getIdUsage(), timeUsageList);
 
 
-        return result > 0;
-
     }
 
 
 
-    public boolean addElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
+    public void addElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -272,7 +266,6 @@ public class DbConnection extends SQLiteOpenHelper {
 
         updateElectronicTimeUsageTemplates(electronic.getIdElectronic(), electronicTimeUsageTemplatesArrayList);
 
-        return result > 0;
 
     }
 
@@ -297,7 +290,7 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
     }
 
-    public boolean editElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
+    public void editElectronic(Electronic electronic, ArrayList<ElectronicTimeUsageTemplate> electronicTimeUsageTemplatesArrayList) {
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -307,7 +300,6 @@ public class DbConnection extends SQLiteOpenHelper {
         closeDatabase();
         updateElectronicTimeUsageTemplates(electronic.getIdElectronic(), electronicTimeUsageTemplatesArrayList);
 
-        return result > 0;
 
     }
 

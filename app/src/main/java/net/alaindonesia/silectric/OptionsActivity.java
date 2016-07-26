@@ -25,9 +25,9 @@ public class OptionsActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
-    double usageFeePerKwh;
+    private double usageFeePerKwh;
     double basicChargeFee;
-    double otherFee;
+    private double otherFee;
     SilentricCurrency selectedSilentricCurrency;
 
 
@@ -85,7 +85,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
-    public static ArrayList<SilentricCurrency> getAllCurrencies()
+    private static ArrayList<SilentricCurrency> getAllCurrencies()
     {
 
         LinkedHashSet<SilentricCurrency> silentricCurrencyLinkedHashSet = new LinkedHashSet<>();

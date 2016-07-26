@@ -74,12 +74,6 @@ public class SearchableListDialog extends DialogFragment implements
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams
@@ -182,7 +176,7 @@ public class SearchableListDialog extends DialogFragment implements
         _listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _searchableItem.onSearchableItemClicked(listAdapter.getItem(position), position);
+                _searchableItem.onSearchableItemClicked(listAdapter.getItem(position));
                 getDialog().dismiss();
             }
         });
@@ -215,7 +209,7 @@ public class SearchableListDialog extends DialogFragment implements
     }
 
     public interface SearchableItem<T> extends Serializable {
-        void onSearchableItemClicked(T item, int position);
+        void onSearchableItemClicked(T item);
     }
 
     public interface OnSearchTextChanged {

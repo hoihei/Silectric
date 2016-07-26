@@ -34,7 +34,7 @@ import java.util.List;
 public class SearchableSpinner extends Spinner implements View.OnTouchListener,
         SearchableListDialog.SearchableItem {
 
-    public static final int NO_ITEM_SELECTED = -1;
+    private static final int NO_ITEM_SELECTED = -1;
     private Context _context;
     private List _items;
     private SearchableListDialog _searchableListDialog;
@@ -129,7 +129,7 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
     }
 
     @Override
-    public void onSearchableItemClicked(Object item, int position) {
+    public void onSearchableItemClicked(Object item) {
         setSelection(_items.indexOf(item));
 
         if (!_isDirty) {
@@ -145,14 +145,6 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
 
     public void setPositiveButton(String strPositiveButtonText) {
         _searchableListDialog.setPositiveButton(strPositiveButtonText);
-    }
-
-    public void setPositiveButton(String strPositiveButtonText, DialogInterface.OnClickListener onClickListener) {
-        _searchableListDialog.setPositiveButton(strPositiveButtonText, onClickListener);
-    }
-
-    public void setOnSearchTextChangedListener(SearchableListDialog.OnSearchTextChanged onSearchTextChanged) {
-        _searchableListDialog.setOnSearchTextChangedListener(onSearchTextChanged);
     }
 
     private Activity scanForActivity(Context cont) {

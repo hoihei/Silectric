@@ -37,7 +37,7 @@ public class ElectronicActivity extends AppCompatActivity {
     private Electronic electronic;
     private DbConnection dbConnection;
     private boolean isNewElectronic =false;
-    ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList;
+    private ArrayList<ElectronicTimeUsageTemplate> timeUsageTemplateArrayList;
     ImageButton deleteElectronicButton;
 
     @Override
