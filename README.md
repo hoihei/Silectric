@@ -1,4 +1,6 @@
 ### apk download
+
+[https://github.com/hoihei/Silectric/releases/download/v1.0.6.27.1/silectric1.0.6.27.1.apk](https://github.com/hoihei/Silectric/releases/download/v1.0.6.27.1/silectric1.0.6.27.1.apk)
 [https://github.com/hoihei/Silectric/releases](https://github.com/hoihei/Silectric/releases)
 
 Silectric
