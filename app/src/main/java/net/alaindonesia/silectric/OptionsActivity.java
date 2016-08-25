@@ -12,9 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import net.alaindonesia.silectric.model.SilentricCurrency;
+import net.alaindonesia.silectric.model.SilectricCurrency;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
@@ -28,7 +27,7 @@ public class OptionsActivity extends AppCompatActivity {
     private double usageFeePerKwh;
     double basicChargeFee;
     private double otherFee;
-    SilentricCurrency selectedSilentricCurrency;
+    SilectricCurrency selectedSilectricCurrency;
 
 
 
@@ -46,9 +45,9 @@ public class OptionsActivity extends AppCompatActivity {
         usageFeePerKwh = (double) sharedPreferences.getFloat("usage_fee_per_kwh", 0);
         basicChargeFee = (double)  sharedPreferences.getFloat("basic_fee", 0);
         otherFee = (double)  sharedPreferences.getFloat("others_fee", 0);
-        String currencyCode = sharedPreferences.getString("currency_code", Currency.getInstance( getResources().getConfiguration().locale).getCurrencyCode());
+        String currencyCode = sharedPreferences.getString("currency_code", "USD");
         Currency currency = Currency.getInstance(currencyCode);
-        this.selectedSilentricCurrency = new SilentricCurrency(currency);
+        this.selectedSilectricCurrency = new SilectricCurrency(currency);
 
 
         initFormOptions();
@@ -72,8 +71,8 @@ public class OptionsActivity extends AppCompatActivity {
                 editorSharedPref.putFloat("usage_fee_per_kwh", Float.valueOf(usageFeePerKwhEditText.getText().toString()));
                 editorSharedPref.putFloat("basic_fee", Float.valueOf(basicChargeFeeEditText.getText().toString()));
                 editorSharedPref.putFloat("others_fee", Float.valueOf((othersFeeEditText.getText().toString())));
-                SilentricCurrency silentricCurrency = (SilentricCurrency) currencyOptionsSpinner.getSelectedItem();
-                editorSharedPref.putString("currency_code", silentricCurrency.getCurrency().getCurrencyCode());
+                SilectricCurrency silectricCurrency = (SilectricCurrency) currencyOptionsSpinner.getSelectedItem();
+                editorSharedPref.putString("currency_code", silectricCurrency.getCurrency().getCurrencyCode());
                 editorSharedPref.apply();
 
                 setResult(Activity.RESULT_OK, new Intent());
@@ -85,27 +84,27 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
-    private static ArrayList<SilentricCurrency> getAllCurrencies()
+    private static ArrayList<SilectricCurrency> getAllCurrencies()
     {
 
-        LinkedHashSet<SilentricCurrency> silentricCurrencyLinkedHashSet = new LinkedHashSet<>();
+        LinkedHashSet<SilectricCurrency> silectricCurrencyLinkedHashSet = new LinkedHashSet<>();
         Locale[] locales = Locale.getAvailableLocales();
 
         for(Locale loc : locales) {
             try {
                 Currency currency = Currency.getInstance(loc);
-                silentricCurrencyLinkedHashSet.add( new SilentricCurrency(loc.getDisplayCountry(), currency) );
+                silectricCurrencyLinkedHashSet.add(new SilectricCurrency(loc.getDisplayCountry(), currency));
             } catch(Exception exc)
             {
                 // Locale not found
             }
         }
-        ArrayList<SilentricCurrency> silentricCurrencies = new ArrayList<>();
-        silentricCurrencies.addAll(silentricCurrencyLinkedHashSet);
+        ArrayList<SilectricCurrency> silectricCurrencies = new ArrayList<>();
+        silectricCurrencies.addAll(silectricCurrencyLinkedHashSet);
 
-        Collections.sort(silentricCurrencies);
+        Collections.sort(silectricCurrencies);
 
-        return silentricCurrencies;
+        return silectricCurrencies;
     }
 
     private void initFormOptions(){
@@ -115,23 +114,20 @@ public class OptionsActivity extends AppCompatActivity {
         EditText othersFeeEditText = (EditText) findViewById(R.id.other_fee_edit_text);
         SearchableSpinner currencyOptionsSpinner = (SearchableSpinner) findViewById(R.id.currencyOptionsSpinner);
 
-        ArrayList<SilentricCurrency> silentricCurrencies = getAllCurrencies();
-        ArrayAdapter<SilentricCurrency> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, silentricCurrencies);
+        ArrayList<SilectricCurrency> silectricCurrencies = getAllCurrencies();
+        ArrayAdapter<SilectricCurrency> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, silectricCurrencies);
         currencyOptionsSpinner.setAdapter(dataAdapter);
 
-        for (int i =0; i < silentricCurrencies.size(); i++) {
-            String currencyCode1 = silentricCurrencies.get(i).getCurrency().getCurrencyCode();
-            String currencyCode2 = selectedSilentricCurrency.getCurrency().getCurrencyCode();
+        for (int i =0; i < silectricCurrencies.size(); i++) {
+            String currencyCode1 = silectricCurrencies.get(i).getCurrency().getCurrencyCode();
+            String currencyCode2 = selectedSilectricCurrency.getCurrency().getCurrencyCode();
             if (currencyCode1 == currencyCode2)
                 currencyOptionsSpinner.setSelection(i);
         }
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        df.setGroupingUsed(false);
 
-        usageFeePerKwhEditText.setText(String.valueOf(df.format(usageFeePerKwh)));
-        basicChargeFeeEditText.setText(String.valueOf(df.format(basicChargeFee)));
-        othersFeeEditText.setText(String.valueOf(df.format(otherFee)));
+        usageFeePerKwhEditText.setText(String.valueOf(usageFeePerKwh));
+        basicChargeFeeEditText.setText(String.valueOf(basicChargeFee));
+        othersFeeEditText.setText(String.valueOf(otherFee));
 
     }
 

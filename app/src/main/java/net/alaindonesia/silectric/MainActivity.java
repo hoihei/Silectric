@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         double totalMonthlyUsage = totalKwh * feeUsagePerKwh;
         totalMonthlyUsage = totalMonthlyUsage + feeBase + feeOthers;
 
-        String currencyCode = silectricPreferences.getString("currency_code", Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode());
+        String currencyCode = silectricPreferences.getString("currency_code", "USD");
         Currency currency = Currency.getInstance(currencyCode);
 
         DecimalFormat monthlyFeeFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(getResources().getConfiguration().locale);
