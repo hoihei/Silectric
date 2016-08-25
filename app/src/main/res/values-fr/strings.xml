@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name" translatable="false">Silectric</string>
     <string name="preferences">Préférences</string>
     <string name="title_activity_usage">Usage</string>
     <string name="total">Total</string>
     <string name="electric_fee_example">$ 0</string>
-    <string name="electric_usage_example" translatable="false">0 kWh</string>
     <string name="days">Jours</string>
     <string name="activity_per_day">Activité par jour</string>
     <string name="add_activity" >Ajouter une activité</string>
@@ -18,11 +16,8 @@
     <string name="others_fee">Autres Charges</string>
     <string name="electronic_template">Template d\'Électronique</string>
     <string name="mode">Mode</string>
-    <string name="double_score" translatable="false">" : "</string>
-    <string name="watt" translatable="false">Watt</string>
     <string name="hours">Heures</string>
     <string name="minutes">Minutes</string>
-    <string name="default_number_electronic" translatable="false">1</string>
     <string name="number_of_items">Nombre d\'Items</string>
     <string name="save">Sauvegarder</string>
     <string name="currency_options">Monnaie</string>
