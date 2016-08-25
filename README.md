@@ -1,13 +1,8 @@
-### apk download
-
-[https://github.com/hoihei/Silectric/releases/download/v1.1.2016.8.13.1/silectric1.1.2016.8.13.1.apk](https://github.com/hoihei/Silectric/releases/download/v1.1.2016.8.13.1/silectric1.1.2016.8.13.1.apk)
-
-[https://github.com/hoihei/Silectric/releases](https://github.com/hoihei/Silectric/releases)
-
-[![F-Droid](https://raw.githubusercontent.com/ultramega/elementary/master/store/en-fdroid-badge.png)](https://f-droid.org/repository/browse/?fdid=net.alaindonesia.silectric)
 
 Silectric
 =========
+[![F-Droid](https://raw.githubusercontent.com/ultramega/elementary/master/store/en-fdroid-badge.png)](https://f-droid.org/repository/browse/?fdid=net.alaindonesia.silectric)
+
 An Android application to calculate electric bill based on electric consumption in home.
 
 
