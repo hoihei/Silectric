@@ -2,6 +2,7 @@
 Silectric
 =========
 An Android application to calculate electric bill based on electric consumption in home.
+
 [![F-Droid](https://raw.githubusercontent.com/ultramega/elementary/master/store/en-fdroid-badge.png)](https://f-droid.org/repository/browse/?fdid=net.alaindonesia.silectric)
 
 #### License
