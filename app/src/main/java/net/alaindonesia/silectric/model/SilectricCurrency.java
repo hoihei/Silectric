@@ -3,9 +3,8 @@ package net.alaindonesia.silectric.model;
 import android.support.annotation.NonNull;
 
 import java.util.Currency;
-import java.util.Locale;
 
-public class SilentricCurrency implements Comparable {
+public class SilectricCurrency implements Comparable {
 
     private String countryName;
     private Currency currency;
@@ -19,12 +18,12 @@ public class SilentricCurrency implements Comparable {
     }
 
 
-    public SilentricCurrency(String countryName, Currency currency){
+    public SilectricCurrency(String countryName, Currency currency){
         this.countryName = countryName;
         this.currency = currency;
     }
 
-    public SilentricCurrency(Currency currency){
+    public SilectricCurrency(Currency currency){
         this.currency = currency;
     }
 
@@ -34,7 +33,7 @@ public class SilentricCurrency implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object another) {
-        SilentricCurrency that = (SilentricCurrency) another;
+        SilectricCurrency that = (SilectricCurrency) another;
         return this.countryName.compareTo(that.countryName);
     }
 
@@ -43,7 +42,7 @@ public class SilentricCurrency implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SilentricCurrency that = (SilentricCurrency) o;
+        SilectricCurrency that = (SilectricCurrency) o;
 
         return currency != null ? currency.equals(that.currency) : that.currency == null;
 
