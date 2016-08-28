@@ -1,0 +1,24 @@
+<resources>
+    <string name="preferences">設定</string>
+    <string name="title_activity_usage">使用状況</string>
+    <string name="total">合計</string>
+    <string name="electric_fee_example">$ 0</string>
+    <string name="days">日</string>
+    <string name="activity_per_day">日あたりの活動</string>
+    <string name="add_activity" >活動を追加</string>
+    <string name="electronic">電気</string>
+    <string name="number">数</string>
+    <string name="usage_day">使用状況 / 日</string>
+    <string name="electronic_name">電気名</string>
+    <string name="template_daily_usage">テンプレート 使用状況/日</string>
+    <string name="basic_charge">基本使用料</string>
+    <string name="energy_charge">kWh あたり料金</string>
+    <string name="others_fee">その他の料金</string>
+    <string name="electronic_template">電気テンプレート</string>
+    <string name="mode">モード</string>
+    <string name="hours">時間</string>
+    <string name="minutes">分</string>
+    <string name="number_of_items">アイテム数</string>
+    <string name="save">保存</string>
+    <string name="currency_options">通貨</string>
+</resources>
