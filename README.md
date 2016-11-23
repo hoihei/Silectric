@@ -27,7 +27,7 @@ Apache License 2.0
   * Spanish locale support
 * 1.1
   * France locale support
-  * 1.0
+* 1.0
   * Multiple electricity usage activity
   * Calculated bill prediction
   * Calculated wattage prediction
