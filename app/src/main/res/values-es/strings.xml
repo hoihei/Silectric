@@ -1,0 +1,22 @@
+<resources>
+    <string name="preferences">Preferencias</string>
+    <string name="title_activity_usage">Uso</string>
+    <string name="days">Días</string>
+    <string name="activity_per_day">Actividad por día</string>
+    <string name="add_activity" >Agregar actividad</string>
+    <string name="electronic">Electrónico</string>
+    <string name="number">Número</string>
+    <string name="usage_day">Uso / dia</string>
+    <string name="electronic_name">Nombre del Electrónico</string>
+    <string name="template_daily_usage">Plantilla uso/día</string>
+    <string name="basic_charge">Cargo Cuota Básica</string>
+    <string name="energy_charge">Cuota por kWh</string>
+    <string name="others_fee">Otras Cuotas</string>
+    <string name="electronic_template">Plantilla Electrónico</string>
+    <string name="mode">Modo</string>
+    <string name="hours">Horas</string>
+    <string name="minutes">Minutos</string>
+    <string name="number_of_items">Número de Items</string>
+    <string name="save">Guardar</string>
+    <string name="currency_options">Moneda</string>
+</resources>
