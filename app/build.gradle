@@ -9,8 +9,8 @@ android {
         applicationId "net.alaindonesia.silectric"
         minSdkVersion 15
         targetSdkVersion 23
-        versionName '1.1.2016.8.25.1'
-        versionCode 1120168251
+        versionName '1.2'
+        versionCode 1220161204
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
