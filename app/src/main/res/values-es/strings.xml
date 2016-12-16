@@ -6,7 +6,7 @@
     <string name="add_activity" >Agregar actividad</string>
     <string name="electronic">Electrónico</string>
     <string name="number">Número</string>
-    <string name="usage_day">Uso / dia</string>
+    <string name="usage_day">Uso / día</string>
     <string name="electronic_name">Nombre del Electrónico</string>
     <string name="template_daily_usage">Plantilla uso/día</string>
     <string name="basic_charge">Cargo Cuota Básica</string>
@@ -19,4 +19,6 @@
     <string name="number_of_items">Número de Items</string>
     <string name="save">Guardar</string>
     <string name="currency_options">Moneda</string>
+    <string name="electric_fee_example">€ 0</string>
+    <string name="total">Total</string>
 </resources>

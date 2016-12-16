@@ -2,7 +2,7 @@
     <string name="preferences">設定</string>
     <string name="title_activity_usage">使用状況</string>
     <string name="total">合計</string>
-    <string name="electric_fee_example">$ 0</string>
+    <string name="electric_fee_example">¥ 0</string>
     <string name="days">日</string>
     <string name="activity_per_day">日あたりの活動</string>
     <string name="add_activity" >活動を追加</string>

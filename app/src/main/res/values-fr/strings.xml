@@ -2,7 +2,7 @@
     <string name="preferences">Préférences</string>
     <string name="title_activity_usage">Usage</string>
     <string name="total">Total</string>
-    <string name="electric_fee_example">$ 0</string>
+    <string name="electric_fee_example">€ 0</string>
     <string name="days">Jours</string>
     <string name="activity_per_day">Activité par jour</string>
     <string name="add_activity" >Ajouter une activité</string>
