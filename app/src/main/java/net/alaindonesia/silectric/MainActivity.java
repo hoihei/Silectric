@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String totalKwHString = kwhFormat.format(totalKwh) + " KwH ";
         totalElectricUsageTextView.setText(totalKwHString);
 
-        double feeUsagePerKwh = (double) silectricPreferences.getFloat("usage_fee_per_kwh", 0.2f);
+        double feeUsagePerKwh = (double) silectricPreferences.getFloat("usage_fee_per_kwh", 1);
         double feeBase = (double) silectricPreferences.getFloat("basic_fee", 0);
         double feeOthers = (double) silectricPreferences.getFloat("others_fee", 0);
 
@@ -305,11 +305,18 @@ class UsageListAdapter extends BaseAdapter {
 
         Usage usage = usageList.get(position);
 
+
+        DecimalFormat df = new DecimalFormat("0.##");
+
         try {
+            String formattedHours = df.format(usage.getTotalUsageHoursPerDay()) + " hours";
+            String formattedWatt = df.format(usage.getTotalWattagePerDay()) + " watt";
+            String formattedNumberOfElectronic = df.format(usage.getNumberOfElectronic()) + " electronics";
+
             nameElectronicOnListRow.setText(usage.getElectronic().getElectronicName());
-            totalWattagePerDayOnListRow.setText(String.valueOf(usage.getTotalWattagePerDay()) + " watt");
-            totalUsageHoursPerDayOnListRow.setText(String.valueOf(usage.getTotalUsageHoursPerDay()) + " hours");
-            numberOfElectronicOnListRow.setText(String.valueOf(usage.getNumberOfElectronic()) + " electronics");
+            totalWattagePerDayOnListRow.setText(formattedWatt);
+            totalUsageHoursPerDayOnListRow.setText(formattedHours) ;
+            numberOfElectronicOnListRow.setText(formattedNumberOfElectronic);
         } catch (Exception e) {
             Log.e("MAinActivity", e.getMessage());
         }

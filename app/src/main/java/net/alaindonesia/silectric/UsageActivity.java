@@ -184,7 +184,9 @@ public class UsageActivity extends AppCompatActivity {
                 double totalUsageHoursPerDay=0;
                 int totalWattagePerDay=0;
                 for(TimeUsage timeUsage : timeUsageArrayList){
-                    double hours = timeUsage.getHours() + (timeUsage.getMinutes()/60);
+                    double minutes = timeUsage.getMinutes();
+                    double minute_in_hours = minutes/60;
+                    double hours = timeUsage.getHours() + minute_in_hours;
                     totalUsageHoursPerDay = totalUsageHoursPerDay + hours;
                     totalWattagePerDay = (int)( totalWattagePerDay + (hours * timeUsage.getWattage()));
                 }
