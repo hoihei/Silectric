@@ -10,7 +10,6 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionName '1.2.02'
-        versionCode 20180320
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
